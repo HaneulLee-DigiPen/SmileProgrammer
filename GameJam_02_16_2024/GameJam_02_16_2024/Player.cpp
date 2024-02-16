@@ -14,6 +14,30 @@ void Player::Update(float dt)
 	
 	m_incomeTimerLimit = m_fixedIncomeTimerLimit;
 	// furniture bonus first (need to be fixed)
+	if (gameState->GetCurtain() == true)
+	{
+		m_incomeTimerLimit -= 0.1f;
+	}
+	if (gameState->GetFan() == true)
+	{
+		m_incomeTimerLimit -= 0.1f;
+	}
+	if (gameState->GetShelf() == true)
+	{
+		m_incomeTimerLimit -= 0.1f;
+	}
+	if (gameState->GetBed() == true)
+	{
+		m_incomeTimerLimit -= 0.1f;
+	}
+	if (gameState->GetRefrigerator() == true)
+	{
+		m_incomeTimerLimit -= 0.2f;
+	}
+	if (gameState->GetAirConditioner() == true)
+	{
+		m_incomeTimerLimit -= 0.2f;
+	}
 
 	if (m_averagePoint < 25)
 	{
@@ -30,11 +54,21 @@ void Player::Update(float dt)
 
 	if (m_incomeTimer >= m_incomeTimerLimit)
 	{
-		gameState->AddMoney(1);
+		gameState->AddMoney(m_incomeMoney);
 		m_incomeTimer = 0;
 		std::cout << "Timer : " << m_incomeTimerLimit << std::endl;
 		std::cout << gameState->GetMoney() << std::endl;
 	}
+}
+
+void Player::SetAveragePoint(int point)
+{
+	m_averagePoint = point;
+}
+
+void Player::DoubleIncomeMoney()
+{
+	m_incomeMoney *= 2;
 }
 
 int Player::GetHungry() 
@@ -55,6 +89,18 @@ int Player::GetThirsty()
 int Player::GetBathroom() 
 { 
 	return m_bathroomPoint; 
+}
+
+bool Player::enoughPoints()
+{
+	if (m_averagePoint >= 50)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void Player::ChangeHungry(int point)

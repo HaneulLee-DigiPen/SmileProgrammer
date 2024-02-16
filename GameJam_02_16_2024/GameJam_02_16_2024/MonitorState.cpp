@@ -35,10 +35,19 @@ void MonitorState::Update(float dt)
 	if (m_monitorStatus == MonitorStatus::Lobby)
 	{
 		LobbyUpdate(dt);
+		if (IsKeyPressed(KeyboardKey::KEY_RIGHT_SHIFT) == true)
+		{
+			gameStateManager->SetStateEnum(GameStateEnum::Game);
+		}
 	}
 	else if (m_monitorStatus == MonitorStatus::Work)
 	{
 		WorkUpdate(dt);
+	}
+
+	if (IsKeyPressed(KeyboardKey::KEY_RIGHT_SHIFT) == true)
+	{
+		gameStateManager->SetStateEnum(GameStateEnum::Game);
 	}
 }
 
@@ -49,6 +58,7 @@ void MonitorState::Draw()
 	if (m_monitorStatus == MonitorStatus::Lobby)
 	{
 		LobbyDraw();
+		DrawText("Press \"Right Shift\" to going back.", 60, 500, 40, WHITE);
 	}
 	else if (m_monitorStatus == MonitorStatus::Work)
 	{
@@ -107,6 +117,14 @@ void MonitorState::SetMonitorStatus(MonitorStatus monitorStatus)
 	m_monitorStatus = monitorStatus;
 }
 
+void MonitorState::AddMonitor()
+{
+	if (m_monitorNum != MonitorNumber::Four)
+	{
+		m_monitorNum = static_cast<MonitorNumber>(static_cast<int>(m_monitorNum) + 1);
+	}
+}
+
 unsigned int MonitorState::GetCurrentLevel() const
 {
 	return m_currentLevel;
@@ -115,6 +133,11 @@ unsigned int MonitorState::GetCurrentLevel() const
 unsigned int MonitorState::GetLevelCounts() const
 {
 	return m_levelCounts;
+}
+
+MonitorNumber MonitorState::GetMonitorNumber() const
+{
+	return m_monitorNum;
 }
 
 MonitorButton::MonitorButton(int x, int y, int width, int height, Color color)

@@ -14,6 +14,9 @@ public:
 	void ChangeSleep(int point);
 	void ChangeBathroom(int point);
 	void ChangeThirsty(int point);
+	
+	void SetAveragePoint(int point);
+	void DoubleIncomeMoney();
 
 	int GetHungry();
 	int GetSleep();
@@ -37,7 +40,7 @@ private:
 	void UpdateAveragePoint();
 	
 	
-
+	int m_incomeMoney = 1;
 };
 
 extern Player* player;

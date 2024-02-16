@@ -94,19 +94,15 @@ void RhythmSystem::Play(float dt)
 
 	if (m_stageFailFlag == true)
 	{
-		// Quit State
-		// And maybe some penalty...?
 		Reset();
 		monitorState->SetMonitorStatus(MonitorStatus::Lobby);
 	}
 
 	if (m_stageClearFlag == true)
 	{
-		// Add score
 		gameState->AddMoney(m_pointMulti * (monitorState->GetCurrentLevel() + 1));
 		std::cout << gameState->GetMoney() << " Dollars" << std::endl;
 		
-		// Quit State
 		Reset();
 		if (monitorState->GetCurrentLevel() == monitorState->GetLevelCounts() * static_cast<int>(MonitorNumber::Count) - 1)
 		{
@@ -114,7 +110,7 @@ void RhythmSystem::Play(float dt)
 			return;
 		}
 		monitorState->SetCurrentLevel(monitorState->GetCurrentLevel() + 1);
-		monitorState->SetMonitorStatus(MonitorStatus::Lobby); // Need to change
+		gameStateManager->SetStateEnum(GameStateEnum::Game); // Need to change
 		GenerateKeys(monitorState->GetCurrentLevel());
 	}
 }
@@ -136,7 +132,7 @@ void RhythmSystem::Draw()
 		DrawRectangle(0, 0, WINDOW_WIDTH, static_cast<int>(m_warningRectHeight), RED);
 
 		int offsetX = 10;
-		int offsetY = 10;
+		int offsetY = 20;
 
 		int fontSize = 40;
 		const int normalFontSize = 40;
@@ -156,7 +152,7 @@ void RhythmSystem::Draw()
 				{
 					keyColor = BLUE;
 				}
-				else if (i == m_keyVIndex && j < m_keyVVIndex)
+				else if (i < m_keyVIndex || i == m_keyVIndex && j < m_keyVVIndex)
 				{
 					keyColor = GREEN;
 				}

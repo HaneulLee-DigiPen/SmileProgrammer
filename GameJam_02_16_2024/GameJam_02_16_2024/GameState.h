@@ -23,6 +23,13 @@ public:
 	void SpendMoney(unsigned int money);
 	void SetMoney(unsigned int money);
 
+	bool GetCurtain() const;
+	bool GetFan() const;
+	bool GetShelf() const;
+	bool GetBed() const;
+	bool GetRefrigerator() const;
+	bool GetAirConditioner() const;
+
 	unsigned int GetMoney() const;
 
 private:
@@ -50,6 +57,7 @@ private:
 	std::vector<Trash> m_trashVec;
 
 	unsigned int m_money = 0;
+
 	int m_smartphoneUI_posX = 670;
 	int m_smartphoneUI_posY = 475;
 	int m_smartphoneIcon_posX = 200;
@@ -77,4 +85,14 @@ private:
 	float m_firstTime = 0;
 	int m_orderTime = 5;
 	bool m_isOrderArrive = false;
+
+	bool m_dualMonitor = false;
+	bool m_tripleMonitor = false;
+	bool m_quadMonitor = false;
+	bool m_curtain = false;
+	bool m_fan = false;
+	bool m_shelf = false;
+	bool m_bed = false;
+	bool m_refrigerator = false;
+	bool m_airConditioner = false;
 };

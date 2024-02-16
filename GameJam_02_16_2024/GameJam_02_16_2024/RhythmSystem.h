@@ -45,5 +45,5 @@ private:
 	float m_warningRectHeight = 0;
 
 	std::vector<Texture2D> m_arrows{};
-	Texture2D m_backgroundTexture;
+	Texture2D m_backgroundTexture{};
 };

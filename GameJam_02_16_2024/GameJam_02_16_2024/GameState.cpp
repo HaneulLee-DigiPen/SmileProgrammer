@@ -5,6 +5,7 @@
 
 #include "GameState.h"
 #include "Player.h"
+#include "GameStateManager.h"
 #include <iostream>
 #include <string>
 
@@ -44,6 +45,32 @@ void GameState::Update(float dt)
 	GenerateTrash();
 	DestroyTrash();
 	UpdateSmartPhone();
+	if (IsKeyPressed(KeyboardKey::KEY_ENTER) && m_checkClickSmartPhone == false)
+	{
+		if (player->enoughPoints() == true)
+		{
+			gameStateManager->SetStateEnum(GameStateEnum::Monitor);
+		}
+		else
+		{
+			if (monitorState->GetCurrentLevel() < 3)
+			{
+				gameStateManager->SetStateEnum(GameStateEnum::Monitor);
+			}
+			else if (monitorState->GetCurrentLevel() < 6 && m_dualMonitor == true)
+			{
+				gameStateManager->SetStateEnum(GameStateEnum::Monitor);
+			}
+			else if (monitorState->GetCurrentLevel() < 9 && m_tripleMonitor == true)
+			{
+				gameStateManager->SetStateEnum(GameStateEnum::Monitor);
+			}
+			else if (monitorState->GetCurrentLevel() < 12 && m_quadMonitor == true)
+			{
+				gameStateManager->SetStateEnum(GameStateEnum::Monitor);
+			}
+		}
+	}
 }
 
 void GameState::Draw()
@@ -53,6 +80,15 @@ void GameState::Draw()
 	DrawTrash();
 	DrawSmartPhoneUI();
 	DrawSmartPhoneIcon();
+
+	if (monitorState->GetCurrentLevel() < 3) {}
+	else if (monitorState->GetCurrentLevel() < 6 && m_dualMonitor == true) {}
+	else if (monitorState->GetCurrentLevel() < 9 && m_tripleMonitor == true) {}
+	else if (monitorState->GetCurrentLevel() < 12 && m_quadMonitor == true) {}
+	else 
+	{
+		//DrawText();
+	}
 }
 
 void GameState::Clear()
@@ -78,6 +114,35 @@ void GameState::SpendMoney(unsigned int money)
 void GameState::SetMoney(unsigned int money)
 {
 	m_money = money;
+}
+
+bool GameState::GetCurtain() const
+{
+	return m_curtain;
+}
+
+bool GameState::GetFan() const
+{
+	return m_fan;
+}
+
+bool GameState::GetShelf() const
+{
+	return m_shelf;
+}
+
+bool GameState::GetBed() const
+{
+	return m_bed;
+}
+bool GameState::GetRefrigerator() const
+{
+	return m_refrigerator;
+}
+
+bool GameState::GetAirConditioner() const
+{
+	return m_airConditioner;
 }
 
 unsigned int GameState::GetMoney() const
@@ -299,7 +364,7 @@ void GameState::DrawSmartPhoneIcon()
 {
 	if (m_checkClickSmartPhone == true)
 	{
-		DrawRectangle(0, 0, 800, 600, ColorAlpha(WHITE, 0.8));
+		DrawRectangle(0, 0, 800, 600, ColorAlpha(WHITE, 0.8f));
 		DrawSmartPhoneExplanation();
 
 		if (m_smartPhonePage == 0)
@@ -403,7 +468,7 @@ void GameState::DrawSmartPhonePage_1()
 		}
 	}
 
-	DrawRectangle(m_option_X, optionHeight[m_pageWhichOne], m_option_W, m_option_H, ColorAlpha(GRAY, 0.4));
+	DrawRectangle(m_option_X, optionHeight[m_pageWhichOne], m_option_W, m_option_H, ColorAlpha(GRAY, 0.4f));
 
 	DrawRectangleLines(m_option_X, optionHeight[0], m_option_W, m_option_H, BLACK);
 	DrawRectangleLines(m_option_X, optionHeight[1], m_option_W, m_option_H, BLACK);
@@ -424,7 +489,6 @@ void GameState::DrawSmartPhonePage_1()
 		DrawText(TextFormat("Hunger -%d", onigiriP), 600, 230, 30, BLACK);
 		if (IsKeyPressed(KEY_ENTER) == true)
 		{
-			//���� ���� 20��ŭ �ִٸ�
 			if (m_canOrder == true)
 			{
 				m_isFirst = true;
@@ -441,7 +505,6 @@ void GameState::DrawSmartPhonePage_1()
 		DrawText(TextFormat("Hunger -%d", hamburgerP), 600, 230, 30, BLACK);
 		if (IsKeyPressed(KEY_ENTER) == true)
 		{
-			//���� ���� 35��ŭ �ִٸ�
 			if (m_canOrder == true)
 			{
 				m_isFirst = true;
@@ -458,7 +521,6 @@ void GameState::DrawSmartPhonePage_1()
 		DrawText(TextFormat("Hunger -%d", pizzaP), 600, 230, 30, BLACK);
 		if (IsKeyPressed(KEY_ENTER) == true)
 		{
-			//���� ���� 50��ŭ �ִٸ�
 			if (m_canOrder == true)
 			{
 				m_isFirst = true;
@@ -485,6 +547,179 @@ void GameState::DrawSmartPhonePage_3()
 	DrawTexture(m_smartphoneFrameTexture, m_smartphoneIcon_posX, m_smartphoneIcon_posY, WHITE);
 	DrawCircle(330, 140, 30, BLUE);
 	DrawText("Furniture", 370, 125, 30, BLACK);
+
+	if (IsKeyPressed(KEY_DOWN) == true)
+	{
+		if (m_pageWhichOne == 6)
+		{
+			m_pageWhichOne = 0;
+		}
+		else
+		{
+			m_pageWhichOne += 1;
+		}
+	}
+	else if (IsKeyPressed(KEY_UP) == true)
+	{
+		if (m_pageWhichOne == 0)
+		{
+			m_pageWhichOne = 6;
+		}
+		else
+		{
+			m_pageWhichOne -= 1;
+		}
+	}
+
+	DrawRectangle(m_option_X, optionHeight[m_pageWhichOne], m_option_W, m_option_H, ColorAlpha(GRAY, 0.4f));
+
+	DrawRectangleLines(m_option_X, optionHeight[0], m_option_W, m_option_H, BLACK);
+	DrawRectangleLines(m_option_X, optionHeight[1], m_option_W, m_option_H, BLACK);
+	DrawRectangleLines(m_option_X, optionHeight[2], m_option_W, m_option_H, BLACK);
+	DrawRectangleLines(m_option_X, optionHeight[3], m_option_W, m_option_H, BLACK);
+	DrawRectangleLines(m_option_X, optionHeight[4], m_option_W, m_option_H, BLACK);
+	DrawRectangleLines(m_option_X, optionHeight[5], m_option_W, m_option_H, BLACK);
+
+	unsigned int doubleMonitorM = 400;
+	unsigned int tripleMonitorM = 1200;
+	unsigned int quadMonitorM = 3000;
+	unsigned int curtainM = 100;
+	unsigned int fanM = 150;
+	unsigned int shelfM = 250;
+	unsigned int bedM = 600;
+	unsigned int refrigeratorM = 1200;
+	unsigned int airConditionerM = 2400;
+
+	if (monitorState->GetMonitorNumber() == MonitorNumber::One)
+	{
+		DrawText("Double monitor", m_option_X + 15, optionHeight[0] + 10, 25, BLACK);
+		DrawText(TextFormat("$ %d", doubleMonitorM), m_option_X + 180, optionHeight[0] + 10, 25, BLACK);
+	}
+	else if (monitorState->GetMonitorNumber() == MonitorNumber::Two)
+	{
+		DrawText("Triple monitor", m_option_X + 15, optionHeight[0] + 10, 25, BLACK);
+		DrawText(TextFormat("$ %d", tripleMonitorM), m_option_X + 180, optionHeight[0] + 10, 25, BLACK);
+	}
+	else if (monitorState->GetMonitorNumber() == MonitorNumber::Three)
+	{
+		DrawText("Quad monitor", m_option_X + 15, optionHeight[0] + 10, 25, BLACK);
+		DrawText(TextFormat("$ %d", quadMonitorM), m_option_X + 180, optionHeight[0] + 10, 25, BLACK);
+	}
+
+	if (m_curtain == false)
+	{
+		DrawText("Curtain", m_option_X + 15, optionHeight[1] + 10, 25, BLACK);
+		DrawText(TextFormat("$ %d", curtainM), m_option_X + 180, optionHeight[1] + 10, 25, BLACK);
+	}
+
+	if (m_fan == false)
+	{
+		DrawText("Fan", m_option_X + 15, optionHeight[2] + 10, 25, BLACK);
+		DrawText(TextFormat("$ %d", fanM), m_option_X + 180, optionHeight[2] + 10, 25, BLACK);
+	}
+
+	if (m_shelf == false)
+	{
+		DrawText("Shelf", m_option_X + 15, optionHeight[3] + 10, 25, BLACK);
+		DrawText(TextFormat("$ %d", shelfM), m_option_X + 180, optionHeight[3] + 10, 25, BLACK);
+	}
+
+	if (m_bed == false)
+	{
+		DrawText("Bed", m_option_X + 15, optionHeight[4] + 10, 25, BLACK);
+		DrawText(TextFormat("$ %d", bedM), m_option_X + 180, optionHeight[4] + 10, 25, BLACK);
+	}
+
+	if (m_refrigerator == false)
+	{
+		DrawText("Refrigerator", m_option_X + 15, optionHeight[5] + 10, 25, BLACK);
+		DrawText(TextFormat("$ %d", refrigeratorM), m_option_X + 180, optionHeight[5] + 10, 25, BLACK);
+	}
+
+	if (m_airConditioner == false)
+	{
+		DrawText("Air conditioner", m_option_X + 15, optionHeight[6] + 10, 25, BLACK);
+		DrawText(TextFormat("$ %d", airConditionerM), m_option_X + 180, optionHeight[6] + 10, 25, BLACK);
+	}
+
+	if (m_pageWhichOne == 0)
+	{
+		DrawText(TextFormat("Unlock next level."), 600, 230, 30, BLACK);
+		if (IsKeyPressed(KEY_ENTER) == true)
+		{
+			if (m_dualMonitor == false && m_money >= doubleMonitorM)
+			{
+				m_dualMonitor = true;
+				m_money -= doubleMonitorM;
+			}
+			else if (m_tripleMonitor == false && m_money >= tripleMonitorM)
+			{
+				m_tripleMonitor = true;
+				m_money -= tripleMonitorM;
+			}
+			else if (m_quadMonitor == false && m_money >= quadMonitorM)
+			{
+				m_quadMonitor = true;
+				m_money -= quadMonitorM;
+			}
+			monitorState->AddMonitor();
+			player->DoubleIncomeMoney();
+		}
+	}
+	else if (m_pageWhichOne == 1)
+	{
+		DrawText("Get income 0.1 seconds early", 600, 230, 30, BLACK);
+		if (IsKeyPressed(KEY_ENTER) == true && m_money >= curtainM)
+		{
+			m_curtain = true;
+			m_money -= curtainM;
+		}
+	}
+	else if (m_pageWhichOne == 2)
+	{
+		DrawText("Get income 0.1 seconds early", 600, 230, 30, BLACK);
+		if (IsKeyPressed(KEY_ENTER) == true && m_money >= fanM)
+		{
+			m_fan = true;
+			m_money -= fanM;
+		}
+	}
+	else if (m_pageWhichOne == 3)
+	{
+		DrawText("Get income 0.1 seconds early", 600, 230, 30, BLACK);
+		if (IsKeyPressed(KEY_ENTER) == true && m_money >= shelfM)
+		{
+			m_shelf = true;
+			m_money -= shelfM;
+		}
+	}
+	else if (m_pageWhichOne == 4)
+	{
+		DrawText("Get income 0.2 seconds early", 600, 230, 30, BLACK);
+		if (IsKeyPressed(KEY_ENTER) == true && m_money >= bedM)
+		{
+			m_bed = true;
+			m_money -= bedM;
+		}
+	}
+	else if (m_pageWhichOne == 5)
+	{
+		DrawText("Get income 0.2 seconds early", 600, 230, 30, BLACK);
+		if (IsKeyPressed(KEY_ENTER) == true && m_money >= refrigeratorM)
+		{
+			m_refrigerator = true;
+			m_money -= refrigeratorM;
+		}
+	}
+	else if (m_pageWhichOne == 6)
+	{
+		DrawText("Get income 0.2 seconds early", 600, 230, 30, BLACK);
+		if (IsKeyPressed(KEY_ENTER) == true && m_money >= airConditionerM)
+		{
+			m_airConditioner = true;
+			m_money -= airConditionerM;
+		}
+	}
 }
 
 void GameState::OrderFood(int point)

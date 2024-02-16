@@ -58,11 +58,12 @@ public:
 	void WorkDraw() const;
 
 	void SetCurrentLevel(int level);
-	//void SetLevelStartOffset(int offset);
 	void SetMonitorStatus(MonitorStatus monitorStatus);
+	void AddMonitor();
 
 	int unsigned GetCurrentLevel() const;
 	int unsigned GetLevelCounts() const;
+	MonitorNumber GetMonitorNumber() const;
 
 private:
 	Texture2D m_monitorTexture;

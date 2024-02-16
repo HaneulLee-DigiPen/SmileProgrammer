@@ -43,17 +43,17 @@ void MenuState::DrawBackground()
 
 void MenuState::DrawTitle()
 {
-	DrawRectangle(30, 90, 740, 100, ColorAlpha(GRAY, 0.4));
+	DrawRectangle(30, 90, 740, 100, ColorAlpha(GRAY, 0.4f));
 	DrawText("Smile, Programer!", 50, 100, 80, BLACK);
 }
 
 void MenuState::DrawExplanation()
 {
-	DrawCircle(140, 540, 60, ColorAlpha(GRAY, 0.2));
+	DrawCircle(140, 540, 60, ColorAlpha(GRAY, 0.2f));
 	DrawText("START", 80, 510, 35, GRAY);
 	DrawText("ENTER", 90, 550, 30, BLACK);
 	
-	DrawCircle(665, 540, 60, ColorAlpha(GRAY, 0.2));
+	DrawCircle(665, 540, 60, ColorAlpha(GRAY, 0.2f));
 	DrawText("EXIT", 615, 510, 40, GRAY);
 	DrawText("ESC", 635, 550, 30, BLACK);
 

@@ -7,13 +7,16 @@
 #include "GameState.h"
 #include "MonitorState.h"
 
+GameState* gameState;
+MonitorState* monitorState;
+
 GameStateManager::GameStateManager()
 {
 	std::cout << "Creating GameStateManager..." << std::endl;
 
 	// GameState* menuState = new MenuState();
-	GameState* gameState = new GameState();
-	MonitorState* monitorState = new MonitorState();
+	gameState = new GameState();
+	monitorState = new MonitorState();
 	// GameState* endingState = new EndingState();
 
 	m_gameStates.resize(static_cast<int>(GameStateEnum::Count));

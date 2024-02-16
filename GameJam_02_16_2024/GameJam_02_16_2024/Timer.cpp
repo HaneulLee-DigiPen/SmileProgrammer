@@ -1,8 +1,18 @@
+// Game Name : Smile, Programmer!
+// Team Name : Sam Nam Mae
+// File Name : Timer.cpp
+// Authors : Haneul Lee, Yeaseul Lim, Junhyeong Kim
+
 #include "Timer.h"
 
 Timer::Timer()
 {
 	std::cout << "Creating Timer..." << std::endl;
+}
+
+void Timer::Init()
+{
+	std::cout << "Initializing Timer..." << std::endl;
 }
 
 void Timer::Update(float dt)

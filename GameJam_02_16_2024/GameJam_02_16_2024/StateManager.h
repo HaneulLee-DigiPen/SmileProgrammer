@@ -1,3 +1,8 @@
+// Game Name : Smile, Programmer!
+// Team Name : Sam Nam Mae
+// File Name : StateManager.h
+// Authors : Haneul Lee, Yeaseul Lim, Junhyeong Kim
+
 #pragma once
 #include <iostream>
 #include <vector>
@@ -32,3 +37,5 @@ private:
 	std::vector<State*> m_states{};
 	State* m_state = nullptr;
 };
+
+extern StateManager* stateManager;

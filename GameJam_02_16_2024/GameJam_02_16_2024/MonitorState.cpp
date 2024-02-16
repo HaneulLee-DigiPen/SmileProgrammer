@@ -27,6 +27,7 @@ void MonitorState::Init()
 	}
 	
 	m_rhythmSystem = new RhythmSystem();
+	m_rhythmSystem->Init();
 }
 
 void MonitorState::Update(float dt)

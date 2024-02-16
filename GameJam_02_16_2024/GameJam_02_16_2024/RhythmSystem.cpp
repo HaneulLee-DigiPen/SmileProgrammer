@@ -14,9 +14,22 @@ RhythmSystem::RhythmSystem()
 	std::cout << "Creating RhythmSystem..." << std::endl;
 }
 
+void RhythmSystem::ArrowTextureLoad(std::string path)
+{
+	Image arrowImage = LoadImage(path.c_str());
+	Texture2D arrowTexture = LoadTextureFromImage(arrowImage);
+	m_arrows.push_back(arrowTexture);
+	UnloadImage(arrowImage);
+}
+
 void RhythmSystem::Init()
 {
 	std::cout << "Initializing RhythmSystem..." << std::endl;
+
+	ArrowTextureLoad("Assets/white_arrow_right.png");
+	ArrowTextureLoad("Assets/white_arrow_left.png");
+	ArrowTextureLoad("Assets/white_arrow_down.png");
+	ArrowTextureLoad("Assets/white_arrow_up.png");
 }
 
 void RhythmSystem::Update(float dt)
@@ -107,8 +120,8 @@ void RhythmSystem::Draw()
 	}
 	else
 	{
-		warningRectHeight += static_cast<float>(WINDOW_HEIGHT) / m_limitTimer * GetFrameTime();
-		DrawRectangle(0, 0, WINDOW_WIDTH, static_cast<int>(warningRectHeight), RED);
+		m_warningRectHeight += static_cast<float>(WINDOW_HEIGHT) / m_limitTimer * GetFrameTime();
+		DrawRectangle(0, 0, WINDOW_WIDTH, static_cast<int>(m_warningRectHeight), RED);
 
 		int offsetX = 10;
 		int offsetY = 10;
@@ -117,7 +130,7 @@ void RhythmSystem::Draw()
 		const int normalFontSize = 30;
 		const int highlightedFontSize = 40;
 
-		int gapX = 30;
+		int gapX = 60;
 		int gapY = 60;
 
 		for(unsigned int i = 0; i < m_keys.size(); ++i)
@@ -159,19 +172,19 @@ void RhythmSystem::Draw()
 
 				if (keyValue == KEY_RIGHT)
 				{
-					DrawText("RR", offsetX + gapX * j, offsetY + gapY * i, fontSize, keyColor);
+					DrawTexture(m_arrows[0], offsetX + gapX * j - 20, offsetY + gapY * i - 10, keyColor);
 				}
 				if (keyValue == KEY_LEFT)
 				{
-					DrawText("LL", offsetX + gapX * j, offsetY + gapY * i, fontSize, keyColor);
+					DrawTexture(m_arrows[1], offsetX + gapX * j - 20, offsetY + gapY * i - 10, keyColor);
 				}
 				if (keyValue == KEY_DOWN)
 				{
-					DrawText("DD", offsetX + gapX * j, offsetY + gapY * i, fontSize, keyColor);
+					DrawTexture(m_arrows[2], offsetX + gapX * j - 20, offsetY + gapY * i - 10, keyColor);
 				}
 				if (keyValue == KEY_UP)
 				{
-					DrawText("UU", offsetX + gapX * j, offsetY + gapY * i, fontSize, keyColor);
+					DrawTexture(m_arrows[3], offsetX + gapX * j - 20, offsetY + gapY * i - 10, keyColor);
 				}
 			}
 		}
@@ -219,7 +232,7 @@ void RhythmSystem::GenerateKeys(int additional = 0)
 
 void RhythmSystem::Reset()
 {
-	warningRectHeight = 0;
+	m_warningRectHeight = 0;
 	m_readyFlag = false;
 	m_startFlag = false;
 	m_stageClearFlag = false;

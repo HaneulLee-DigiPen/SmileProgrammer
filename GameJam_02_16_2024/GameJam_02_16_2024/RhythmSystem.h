@@ -16,6 +16,7 @@ public:
 	RhythmSystem();
 
 	void Init();
+	void ArrowTextureLoad(std::string path);
 	void Update(float dt);
 	void Play(float dt);
 	void Draw() ;
@@ -39,7 +40,9 @@ private:
 
 	bool m_stageClearFlag = false;
 	bool m_stageFailFlag = false;
-	int score = 100;
+	int m_point = 100;
 
-	float warningRectHeight = 0;
+	float m_warningRectHeight = 0;
+
+	std::vector<Texture2D> m_arrows;
 };

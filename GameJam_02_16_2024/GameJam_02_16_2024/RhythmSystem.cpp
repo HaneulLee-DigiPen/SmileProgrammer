@@ -126,9 +126,9 @@ void RhythmSystem::Draw()
 		int offsetX = 10;
 		int offsetY = 10;
 
-		int fontSize = 30;
-		const int normalFontSize = 30;
-		const int highlightedFontSize = 40;
+		int fontSize = 40;
+		const int normalFontSize = 40;
+		const int highlightedFontSize = 45;
 
 		int gapX = 60;
 		int gapY = 60;

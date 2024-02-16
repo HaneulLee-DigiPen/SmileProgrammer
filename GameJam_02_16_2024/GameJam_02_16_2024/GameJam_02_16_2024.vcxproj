@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EndingState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MonitorState.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="Trash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EndingState.h" />
     <ClInclude Include="GlobalValues.h" />
     <ClInclude Include="MonitorState.h" />
     <ClInclude Include="RhythmSystem.h" />

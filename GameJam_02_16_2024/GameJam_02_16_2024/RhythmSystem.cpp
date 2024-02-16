@@ -103,7 +103,7 @@ void RhythmSystem::Play(float dt)
 		// Quit State
 		Reset();
 		monitorState->SetCurrentLevel(monitorState->GetCurrentLevel() + 1);
-		monitorState->SetMonitorStatus(MonitorStatus::Lobby);
+		monitorState->SetMonitorStatus(MonitorStatus::Lobby); // Need to change
 		GenerateKeys(monitorState->GetCurrentLevel());
 	}
 }

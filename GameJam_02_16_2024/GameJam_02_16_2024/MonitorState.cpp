@@ -66,8 +66,8 @@ void MonitorState::LobbyUpdate(float dt)
 	for(unsigned int i = 0; i < m_levelCounts; ++i)
 	{
 		m_buttons[i].Update(dt);
-		if (m_buttons[m_currentLevel].IsMouseClicked() == true &&
-			m_currentLevel == i)
+		if (m_buttons[m_currentLevel % m_levelCounts].IsMouseClicked() == true &&
+			m_currentLevel == i + m_levelStartOffset)
 		{
 			m_monitorStatus = MonitorStatus::Work;
 			m_rhythmSystem->GenerateKeys(m_currentLevel);
@@ -96,6 +96,10 @@ void MonitorState::WorkDraw() const
 void MonitorState::SetCurrentLevel(int level)
 {
 	m_currentLevel = level;
+	if (m_currentLevel % 3 == 0)
+	{
+		m_levelStartOffset += m_levelCounts;
+	}
 }
 
 void MonitorState::SetMonitorStatus(MonitorStatus monitorStatus)

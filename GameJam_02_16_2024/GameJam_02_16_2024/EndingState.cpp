@@ -18,7 +18,7 @@ void EndingState::Init()
 void EndingState::Update(float dt)
 {
 	if (IsMouseButtonPressed(MouseButton::MOUSE_BUTTON_LEFT) == true ||
-		IsKeyPressed(KeyboardKey::KEY_BACKSPACE) == true)
+		IsKeyPressed(KeyboardKey::KEY_SPACE) == true)
 	{
 		gameStateManager->SetStateEnum(GameStateEnum::Game); // Need to be fixed
 	}

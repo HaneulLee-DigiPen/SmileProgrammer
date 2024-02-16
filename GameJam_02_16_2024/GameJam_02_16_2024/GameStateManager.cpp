@@ -53,6 +53,10 @@ void GameStateManager::SetStateEnum(GameStateEnum stateEnum)
 
 void GameStateManager::Update(float dt)
 {
+	if (IsKeyPressed(KeyboardKey::KEY_BACKSPACE) == true)
+	{
+		SetStateEnum(GameStateEnum::Ending);
+	}
 	m_gameState->Update(dt);
 }
 

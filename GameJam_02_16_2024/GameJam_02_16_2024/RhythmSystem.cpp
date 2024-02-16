@@ -110,7 +110,28 @@ void RhythmSystem::Play(float dt)
 			return;
 		}
 		monitorState->SetCurrentLevel(monitorState->GetCurrentLevel() + 1);
-		gameStateManager->SetStateEnum(GameStateEnum::Game); // Need to change
+		
+		if (monitorState->GetCurrentLevel() >= 3 && monitorState->GetMonitorNumber() >= MonitorNumber::Two)
+		{
+			monitorState->SetMonitorStatus(MonitorStatus::Lobby);
+		}
+		else if (monitorState->GetCurrentLevel() >= 6 && monitorState->GetMonitorNumber() >= MonitorNumber::Three)
+		{
+			monitorState->SetMonitorStatus(MonitorStatus::Lobby);
+		}
+		else if (monitorState->GetCurrentLevel() >= 9 && monitorState->GetMonitorNumber() >= MonitorNumber::Four)
+		{
+			monitorState->SetMonitorStatus(MonitorStatus::Lobby);
+		}
+		else if (monitorState->GetCurrentLevel() < 3)
+		{
+			monitorState->SetMonitorStatus(MonitorStatus::Lobby);
+		}
+		else
+		{
+			monitorState->SetMonitorStatus(MonitorStatus::Lobby);
+			gameStateManager->SetStateEnum(GameStateEnum::Game);
+		}
 		GenerateKeys(monitorState->GetCurrentLevel());
 	}
 }

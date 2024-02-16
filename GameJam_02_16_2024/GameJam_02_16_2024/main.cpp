@@ -33,7 +33,7 @@ int main()
 
 		BeginDrawing();
 		ClearBackground(Color{ 20, 160, 133, 255 });
-		
+
 		// Timer
 		timer->Update(frameTime);
 

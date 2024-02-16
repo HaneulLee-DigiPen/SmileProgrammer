@@ -98,12 +98,9 @@ void GameState::Update(float dt)
 	{
 		if (player->enoughPoints() == true)
 		{
-			gameStateManager->SetStateEnum(GameStateEnum::Monitor);
-		}
-		else
-		{
 			if (monitorState->GetCurrentLevel() < 3)
 			{
+				std::cout << monitorState->GetCurrentLevel() << std::endl;
 				gameStateManager->SetStateEnum(GameStateEnum::Monitor);
 			}
 			else if (monitorState->GetCurrentLevel() < 6 && m_dualMonitor == true)
@@ -146,7 +143,7 @@ void GameState::Draw()
 	else if (monitorState->GetCurrentLevel() < 12 && m_quadMonitor == true) {}
 	else 
 	{
-		//DrawText();
+		DrawText("You need to upgrade your monitor.", 180, 200, 30,BLACK);
 	}
 	DrawArriveFood();
 	DrawMoneyUI();
@@ -892,92 +889,95 @@ void GameState::DrawSmartPhonePage_3()
 		DrawText(TextFormat("$ %d", airConditionerM), m_option_X + 180, optionHeight[6] + 10, 25, BLACK);
 	}
 
-	if (m_pageWhichOne == 0)
+	if (m_checkClickSmartPhone == true)
 	{
-		DrawText("Unlock Level", 600, 230, 30, BLACK);
-		if (IsKeyPressed(KEY_ENTER) == true)
+		if (m_pageWhichOne == 0)
 		{
-			if (m_dualMonitor == false && m_money >= doubleMonitorM)
+			DrawText("Unlock Level", 600, 230, 30, BLACK);
+			if (IsKeyPressed(KEY_ENTER) == true)
 			{
-				m_dualMonitor = true;
-				m_money -= doubleMonitorM;
-				monitorState->AddMonitor();
-				player->DoubleIncomeMoney();
+				if (m_dualMonitor == false && m_money >= doubleMonitorM)
+				{
+					m_dualMonitor = true;
+					m_money -= doubleMonitorM;
+					monitorState->AddMonitor();
+					player->DoubleIncomeMoney();
+				}
+				else if (m_tripleMonitor == false && m_money >= tripleMonitorM)
+				{
+					m_tripleMonitor = true;
+					m_money -= tripleMonitorM;
+					monitorState->AddMonitor();
+					player->DoubleIncomeMoney();
+				}
+				else if (m_quadMonitor == false && m_money >= quadMonitorM)
+				{
+					m_quadMonitor = true;
+					m_money -= quadMonitorM;
+					monitorState->AddMonitor();
+					player->DoubleIncomeMoney();
+				}
 			}
-			else if (m_tripleMonitor == false && m_money >= tripleMonitorM)
+		}
+		else if (m_pageWhichOne == 1)
+		{
+			DrawText("Fast income", 600, 230, 30, BLACK);
+			DrawText("0.1 second", 600, 260, 30, BLACK);
+			if (IsKeyPressed(KEY_ENTER) == true && m_money >= curtainM)
 			{
-				m_tripleMonitor = true;
-				m_money -= tripleMonitorM;
-				monitorState->AddMonitor();
-				player->DoubleIncomeMoney();
+				m_curtain = true;
+				m_money -= curtainM;
 			}
-			else if (m_quadMonitor == false && m_money >= quadMonitorM)
+		}
+		else if (m_pageWhichOne == 2)
+		{
+			DrawText("Fast income", 600, 230, 30, BLACK);
+			DrawText("0.1 second", 600, 260, 30, BLACK);
+			if (IsKeyPressed(KEY_ENTER) == true && m_money >= fanM)
 			{
-				m_quadMonitor = true;
-				m_money -= quadMonitorM;
-				monitorState->AddMonitor();
-				player->DoubleIncomeMoney();
+				m_fan = true;
+				m_money -= fanM;
 			}
 		}
-	}
-	else if (m_pageWhichOne == 1)
-	{
-		DrawText("Fast income", 600, 230, 30, BLACK);
-		DrawText("0.1 second", 600, 260, 30, BLACK);
-		if (IsKeyPressed(KEY_ENTER) == true && m_money >= curtainM)
+		else if (m_pageWhichOne == 3)
 		{
-			m_curtain = true;
-			m_money -= curtainM;
+			DrawText("Fast income", 600, 230, 30, BLACK);
+			DrawText("0.1 second", 600, 260, 30, BLACK);
+			if (IsKeyPressed(KEY_ENTER) == true && m_money >= shelfM)
+			{
+				m_shelf = true;
+				m_money -= shelfM;
+			}
 		}
-	}
-	else if (m_pageWhichOne == 2)
-	{
-		DrawText("Fast income", 600, 230, 30, BLACK);
-		DrawText("0.1 second", 600, 260, 30, BLACK);
-		if (IsKeyPressed(KEY_ENTER) == true && m_money >= fanM)
+		else if (m_pageWhichOne == 4)
 		{
-			m_fan = true;
-			m_money -= fanM;
+			DrawText("Fast income", 600, 230, 30, BLACK);
+			DrawText("0.2 second", 600, 260, 30, BLACK);
+			if (IsKeyPressed(KEY_ENTER) == true && m_money >= bedM)
+			{
+				m_bed = true;
+				m_money -= bedM;
+			}
 		}
-	}
-	else if (m_pageWhichOne == 3)
-	{
-		DrawText("Fast income", 600, 230, 30, BLACK);
-		DrawText("0.1 second", 600, 260, 30, BLACK);
-		if (IsKeyPressed(KEY_ENTER) == true && m_money >= shelfM)
+		else if (m_pageWhichOne == 5)
 		{
-			m_shelf = true;
-			m_money -= shelfM;
+			DrawText("Fast income", 600, 230, 30, BLACK);
+			DrawText("0.2 second", 600, 260, 30, BLACK);
+			if (IsKeyPressed(KEY_ENTER) == true && m_money >= refrigeratorM)
+			{
+				m_refrigerator = true;
+				m_money -= refrigeratorM;
+			}
 		}
-	}
-	else if (m_pageWhichOne == 4)
-	{
-		DrawText("Fast income", 600, 230, 30, BLACK);
-		DrawText("0.2 second", 600, 260, 30, BLACK);
-		if (IsKeyPressed(KEY_ENTER) == true && m_money >= bedM)
+		else if (m_pageWhichOne == 6)
 		{
-			m_bed = true;
-			m_money -= bedM;
-		}
-	}
-	else if (m_pageWhichOne == 5)
-	{
-		DrawText("Fast income", 600, 230, 30, BLACK);
-		DrawText("0.2 second", 600, 260, 30, BLACK);
-		if (IsKeyPressed(KEY_ENTER) == true && m_money >= refrigeratorM)
-		{
-			m_refrigerator = true;
-			m_money -= refrigeratorM;
-		}
-	}
-	else if (m_pageWhichOne == 6)
-	{
-		DrawText("Fast income", 600, 230, 30, BLACK);
-		DrawText("0.2 second", 600, 260, 30, BLACK);
-		if (IsKeyPressed(KEY_ENTER) == true && m_money >= airConditionerM)
-		{
-			m_airConditioner = true;
-			m_money -= airConditionerM;
+			DrawText("Fast income", 600, 230, 30, BLACK);
+			DrawText("0.2 second", 600, 260, 30, BLACK);
+			if (IsKeyPressed(KEY_ENTER) == true && m_money >= airConditionerM)
+			{
+				m_airConditioner = true;
+				m_money -= airConditionerM;
+			}
 		}
 	}
 }

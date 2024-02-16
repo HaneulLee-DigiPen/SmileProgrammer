@@ -19,9 +19,15 @@ public:
 	void Draw() override;
 	void Clear() override;
 
+	void AddMoney(unsigned int money);
+	void SpendMoney(unsigned int money);
+	void SetMoney(unsigned int money);
+
+	unsigned int GetMoney() const;
+
 private:
 	void DrawBackground();
-	void PlayerUpdate();
+	void PlayerUpdate(float dt);
 	void DrawPlayerStatus();
 	void GenerateTrash();
 	void DrawTrash();
@@ -35,5 +41,7 @@ private:
 
 	Texture2D m_backgroundTexture{};
 
-	std::vector<Trash> trashVec;
+	std::vector<Trash> m_trashVec;
+
+	unsigned int m_money = 0;
 };

@@ -13,7 +13,6 @@
 
 Timer* timer;
 GameStateManager* gameStateManager;
-Player* player;
 
 int main()
 {
@@ -21,14 +20,13 @@ int main()
 	
 	timer = new Timer();
 	gameStateManager = new GameStateManager();
-	player = new Player();
 
 	timer->Init();
 	gameStateManager->Init();
 
 	// Temporary codes
 	//gameStateManager->SetStateEnum(GameStateEnum::Monitor);
-	gameStateManager->SetStateEnum(GameStateEnum::Ending);
+	gameStateManager->SetStateEnum(GameStateEnum::Game);
 
 	while (WindowShouldClose() == false)
 	{
@@ -49,7 +47,6 @@ int main()
 
 	gameStateManager->Clear();
 
-	delete player;
 	delete gameStateManager;
 	delete timer;
 

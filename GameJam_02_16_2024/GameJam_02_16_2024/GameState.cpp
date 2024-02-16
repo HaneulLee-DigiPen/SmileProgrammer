@@ -8,6 +8,8 @@
 #include <iostream>
 #include <string>
 
+Player* player;
+
 void GameState::Init()
 {
 	std::cout << "Initializing GameState..." << std::endl;;
@@ -15,11 +17,13 @@ void GameState::Init()
 	Image backgroundImage = LoadImage("Assets/mainroom.png");
 	m_backgroundTexture = LoadTextureFromImage(backgroundImage);
 	UnloadImage(backgroundImage);
+
+	player = new Player();
 }
 
 void GameState::Update(float dt)
 {
-	PlayerUpdate();
+	PlayerUpdate(dt);
 	GenerateTrash();
 	DestroyTrash();
 }
@@ -34,11 +38,34 @@ void GameState::Draw()
 void GameState::Clear()
 {
 	UnloadTexture(m_backgroundTexture);
+
+	delete player;
 }
 
-
-void GameState::PlayerUpdate()
+void GameState::AddMoney(unsigned int money)
 {
+	m_money += money;
+}
+
+void GameState::SpendMoney(unsigned int money)
+{
+	m_money -= money;
+}
+
+void GameState::SetMoney(unsigned int money)
+{
+	m_money = money;
+}
+
+unsigned int GameState::GetMoney() const
+{
+	return m_money;
+}
+
+void GameState::PlayerUpdate(float dt)
+{
+	player->Update(dt);
+
 	if (m_checkDecreaseStatus == 2)
 	{
 		if ((int)timer->GetTimeFromGameStart() % m_playerStatusTime == 0)
@@ -134,7 +161,7 @@ void GameState::GenerateTrash()
 
 	if (m_checkGenTrash == 1)
 	{
-		trashVec.push_back(Trash{ GetRandomValue(140, 680), GetRandomValue(125, 500) });
+		m_trashVec.push_back(Trash{ GetRandomValue(140, 680), GetRandomValue(125, 500) });
 		m_genTrashTime = GetRandomValue(3, 10);
 
 		m_checkGenTrash = 0;
@@ -143,23 +170,23 @@ void GameState::GenerateTrash()
 
 void GameState::DrawTrash()
 {
-	for (int i = 0; i < trashVec.size(); ++i)
+	for (int i = 0; i < m_trashVec.size(); ++i)
 	{
-		trashVec[i].Draw();
+		m_trashVec[i].Draw();
 	}
 }
 
 void GameState::DestroyTrash()
 {
 	int trashW = 25;
-	for (int i = static_cast<int>(trashVec.size()) - 1; i >= 0; --i)
+	for (int i = static_cast<int>(m_trashVec.size()) - 1; i >= 0; --i)
 	{
-		if (trashVec[i].GetPosX() - trashW >= GetMousePosition().x && trashVec[i].GetPosX() + trashW <= GetMousePosition().x &&
-			trashVec[i].GetPosY() - trashW >= GetMousePosition().y && trashVec[i].GetPosY() + trashW <= GetMousePosition().y)
+		if (m_trashVec[i].GetPosX() - trashW >= GetMousePosition().x && m_trashVec[i].GetPosX() + trashW <= GetMousePosition().x &&
+			m_trashVec[i].GetPosY() - trashW >= GetMousePosition().y && m_trashVec[i].GetPosY() + trashW <= GetMousePosition().y)
 		{
 			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true)
 			{
-				trashVec.erase(trashVec.begin() + i);
+				m_trashVec.erase(m_trashVec.begin() + i);
 				break;
 			}
 		}

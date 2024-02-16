@@ -40,9 +40,10 @@ private:
 
 	bool m_stageClearFlag = false;
 	bool m_stageFailFlag = false;
-	int m_point = 100;
+	unsigned int m_pointMulti = 50;
 
 	float m_warningRectHeight = 0;
 
 	std::vector<Texture2D> m_arrows{};
+	Texture2D m_backgroundTexture;
 };

@@ -4,6 +4,38 @@
 // Authors : Haneul Lee, Yeaseul Lim, Junhyeong Kim
 
 #include "Player.h"
+#include "GameStateManager.h"
+
+void Player::Update(float dt)
+{
+	m_incomeTimer += dt;
+
+	UpdateAveragePoint();
+	
+	m_incomeTimerLimit = m_fixedIncomeTimerLimit;
+	// furniture bonus first (need to be fixed)
+
+	if (m_averagePoint < 25)
+	{
+		m_incomeTimerLimit += m_incomeTimerLimit * 0.75f;
+	}
+	else if (m_averagePoint < 50)
+	{
+		m_incomeTimerLimit += m_incomeTimerLimit * 0.5f;
+	}
+	else if (m_averagePoint < 75)
+	{
+		m_incomeTimerLimit += m_incomeTimerLimit * 0.25f;
+	}
+
+	if (m_incomeTimer >= m_incomeTimerLimit)
+	{
+		gameState->AddMoney(1);
+		m_incomeTimer = 0;
+		std::cout << "Timer : " << m_incomeTimerLimit << std::endl;
+		std::cout << gameState->GetMoney() << std::endl;
+	}
+}
 
 int Player::GetHungry() 
 { 
@@ -89,3 +121,7 @@ void Player::ChangeThirsty(int point)
 	}
 }
 
+void Player::UpdateAveragePoint()
+{
+	m_averagePoint = (m_hungryPoint + m_sleepPoint + m_thirstyPoint + m_bathroomPoint) / 4;
+}

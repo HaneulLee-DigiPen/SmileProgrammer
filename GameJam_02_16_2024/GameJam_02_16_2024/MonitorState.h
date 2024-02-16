@@ -58,7 +58,7 @@ public:
 	void WorkDraw() const;
 
 	void SetCurrentLevel(int level);
-	void SetLevelStartOffset(int offset);
+	//void SetLevelStartOffset(int offset);
 	void SetMonitorStatus(MonitorStatus monitorStatus);
 
 	int unsigned GetCurrentLevel() const;

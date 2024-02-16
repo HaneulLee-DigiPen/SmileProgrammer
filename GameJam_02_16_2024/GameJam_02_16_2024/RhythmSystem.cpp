@@ -30,6 +30,10 @@ void RhythmSystem::Init()
 	ArrowTextureLoad("Assets/white_arrow_left.png");
 	ArrowTextureLoad("Assets/white_arrow_down.png");
 	ArrowTextureLoad("Assets/white_arrow_up.png");
+
+	Image backgroundImage = LoadImage("Assets/minigamebackground.png");
+	m_backgroundTexture = LoadTextureFromImage(backgroundImage);
+	UnloadImage(backgroundImage);
 }
 
 void RhythmSystem::Update(float dt)
@@ -99,9 +103,16 @@ void RhythmSystem::Play(float dt)
 	if (m_stageClearFlag == true)
 	{
 		// Add score
-		// Clear Check
+		gameState->AddMoney(m_pointMulti * (monitorState->GetCurrentLevel() + 1));
+		std::cout << gameState->GetMoney() << " Dollars" << std::endl;
+		
 		// Quit State
 		Reset();
+		if (monitorState->GetCurrentLevel() == monitorState->GetLevelCounts() * static_cast<int>(MonitorNumber::Count) - 1)
+		{
+			gameStateManager->SetStateEnum(GameStateEnum::Ending);
+			return;
+		}
 		monitorState->SetCurrentLevel(monitorState->GetCurrentLevel() + 1);
 		monitorState->SetMonitorStatus(MonitorStatus::Lobby); // Need to change
 		GenerateKeys(monitorState->GetCurrentLevel());
@@ -110,6 +121,7 @@ void RhythmSystem::Play(float dt)
 
 void RhythmSystem::Draw()
 {
+	DrawTexture(m_backgroundTexture, 0, 0, WHITE);
 	if (m_readyFlag == false)
 	{
 		DrawText("Ready", WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 30, WHITE);
@@ -195,14 +207,16 @@ void RhythmSystem::GenerateKeys(int additional = 0)
 {
 	m_keys.clear();
 
+	int dividedAdditional = additional / 2;
+
 	unsigned int timeValue = static_cast<unsigned int>(timer->GetTimeFromWindowInit());
 
 	srand(timeValue);
 
-	for (unsigned int i = 0; i < m_keyVLength + additional; ++i)
+	for (unsigned int i = 0; i < m_keyVLength + dividedAdditional; ++i)
 	{
 		std::vector<KeyboardKey> newKeyLine;
-		for (unsigned int j = 0; j < m_keyVVLength + additional; ++j)
+		for (unsigned int j = 0; j < m_keyVVLength + dividedAdditional; ++j)
 		{
 			if (j % 5 == 0)
 			{
@@ -218,15 +232,6 @@ void RhythmSystem::GenerateKeys(int additional = 0)
 			}
 		}
 		m_keys.push_back(newKeyLine);
-	}
-
-	for (unsigned int i = 0; i < m_keyVLength+ additional; ++i)
-	{
-		for (unsigned int j = 0; j < m_keyVVLength + additional; ++j)
-		{
-			std::cout << m_keys[i][j] << " ";
-		}
-		std::cout << std::endl;
 	}
 }
 

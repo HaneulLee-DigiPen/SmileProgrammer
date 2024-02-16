@@ -47,6 +47,8 @@ void MonitorState::Update(float dt)
 
 	if (IsKeyPressed(KeyboardKey::KEY_RIGHT_SHIFT) == true)
 	{
+		m_rhythmSystem->Reset();
+		m_monitorStatus = MonitorStatus::Lobby;
 		gameStateManager->SetStateEnum(GameStateEnum::Game);
 	}
 }

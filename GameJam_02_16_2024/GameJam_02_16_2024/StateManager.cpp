@@ -1,3 +1,8 @@
+// Game Name : Smile, Programmer!
+// Team Name : Sam Nam Mae
+// File Name : StateManager.cpp
+// Authors : Haneul Lee, Yeaseul Lim, Junhyeong Kim
+
 #include "StateManager.h"
 
 StateManager::StateManager()

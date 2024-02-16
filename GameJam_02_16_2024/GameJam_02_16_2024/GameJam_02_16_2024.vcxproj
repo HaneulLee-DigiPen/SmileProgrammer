@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="MonitorState.cpp" />
     <ClCompile Include="RhythmSystem.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
@@ -137,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GlobalValues.h" />
+    <ClInclude Include="MenuState.h" />
     <ClInclude Include="MonitorState.h" />
     <ClInclude Include="RhythmSystem.h" />
     <ClInclude Include="GameStateManager.h" />

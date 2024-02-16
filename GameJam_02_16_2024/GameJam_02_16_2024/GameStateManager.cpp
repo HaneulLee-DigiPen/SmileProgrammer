@@ -6,19 +6,20 @@
 #include "GameStateManager.h"
 #include "GameState.h"
 #include "MonitorState.h"
+#include "MenuState.h"
 
 GameStateManager::GameStateManager()
 {
 	std::cout << "Creating GameStateManager..." << std::endl;
 
-	// GameState* menuState = new MenuState();
+	MenuState* menuState = new MenuState();
 	GameState* gameState = new GameState();
 	MonitorState* monitorState = new MonitorState();
-	// GameState* endingState = new EndingState();
+	// EndingState* endingState = new EndingState();
 
 	m_gameStates.resize(static_cast<int>(GameStateEnum::Count));
 
-	// m_gameStates[static_cast<int>(GameStateEnum::Menu)] = menuState;
+	m_gameStates[static_cast<int>(GameStateEnum::MainMenu)] = menuState;
 	m_gameStates[static_cast<int>(GameStateEnum::Game)] = gameState;
 	m_gameStates[static_cast<int>(GameStateEnum::Monitor)] = monitorState;
 	// m_gameStates[static_cast<int>(GameStateEnum::Ending)] = EndingState;
@@ -30,7 +31,7 @@ void GameStateManager::Init()
 
 	m_gameStates.resize(static_cast<int>(GameStateEnum::Count));
 
-	// m_gameStates[static_cast<int>(GameStateEnum::Menu)]->Init();
+	m_gameStates[static_cast<int>(GameStateEnum::MainMenu)]->Init();
 	m_gameStates[static_cast<int>(GameStateEnum::Game)]->Init();
 	m_gameStates[static_cast<int>(GameStateEnum::Monitor)]->Init();
 	// m_gameStates[static_cast<int>(GameStateEnum::Monitor)]->Init();

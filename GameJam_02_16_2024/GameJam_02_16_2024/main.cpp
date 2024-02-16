@@ -30,7 +30,7 @@ int main()
 	rhythmSystem->Init();
 
 	// Temporary codes
-	gameStateManager->SetStateEnum(GameStateEnum::Game);
+	gameStateManager->SetStateEnum(GameStateEnum::MainMenu);
 
 	while (WindowShouldClose() == false)
 	{

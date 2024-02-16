@@ -6,13 +6,16 @@
 #include "Trash.h"
 
 Trash::Trash(int PosX, int PosY) : posX(PosX), posY(PosY)
+{}
+
+void Trash::Init()
 {
 	Image image = LoadImage("Assets/trash.png");
 	texture = LoadTextureFromImage(image);
 	UnloadImage(image);
 }
 
-Trash::~Trash()
+void Trash::Clear()
 {
 	UnloadTexture(texture);
 }

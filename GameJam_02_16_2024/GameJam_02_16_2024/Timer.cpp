@@ -1,0 +1,31 @@
+#include "Timer.h"
+
+Timer::Timer()
+{
+	std::cout << "Creating Timer..." << std::endl;
+}
+
+void Timer::Update(float dt)
+{
+	m_timeFromGameStart += dt;
+}
+
+void Timer::ResetTimeFromGameStart()
+{
+	m_timeFromGameStart = 0.f;
+}
+
+void Timer::PrintOutTimeFromGameStart() const
+{
+	std::cout << m_timeFromGameStart << std::endl;
+}
+
+float Timer::GetTimeFromWindowInit() const
+{
+	return static_cast<float>(GetTime());
+}
+
+float Timer::GetTimeFromGameStart() const
+{
+	return m_timeFromGameStart;
+}

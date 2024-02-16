@@ -33,9 +33,13 @@ void GameState::Init()
 	m_smartphoneFrameTexture = LoadTextureFromImage(smartphoneFrameImage);
 	UnloadImage(smartphoneFrameImage);
 
-	Image m_orderFoodImage = LoadImage("Assets/smartphone.png");
+	Image m_orderFoodImage = LoadImage("Assets/orderFood.png");
 	m_orderFoodTexture = LoadTextureFromImage(m_orderFoodImage);
 	UnloadImage(m_orderFoodImage);
+
+	Image m_orderDrinkImage = LoadImage("Assets/orderDrink.png");
+	m_orderDrinkTexture = LoadTextureFromImage(m_orderDrinkImage);
+	UnloadImage(m_orderDrinkImage);
 }
 
 void GameState::Update(float dt)
@@ -44,6 +48,7 @@ void GameState::Update(float dt)
 	GenerateTrash();
 	DestroyTrash();
 	UpdateSmartPhone();
+	GetFood();
 }
 
 void GameState::Draw()
@@ -53,6 +58,9 @@ void GameState::Draw()
 	DrawTrash();
 	DrawSmartPhoneUI();
 	DrawSmartPhoneIcon();
+	DrawArriveFood();
+	DrawMoneyUI();
+	DrawWaitTime();
 }
 
 void GameState::Clear()
@@ -63,6 +71,7 @@ void GameState::Clear()
 	UnloadTexture(m_smartphoneUITexture);
 	UnloadTexture(m_smartphoneIconTexture);
 	UnloadTexture(m_smartphoneFrameTexture);
+	UnloadTexture(m_orderFoodTexture);
 }
 
 void GameState::AddMoney(unsigned int money)
@@ -276,11 +285,19 @@ void GameState::UpdateSmartPhone()
 		
 		if (m_smartPhonePage == 0)
 		{
-			if (IsKeyPressed(KEY_ENTER) == true)
+			if (isPressed == false)
 			{
-				m_smartPhonePage = m_smartPhoneWhichIcon + 1;
+				if (IsKeyPressed(KEY_ENTER) == true)
+				{
+					m_smartPhonePage = m_smartPhoneWhichIcon + 1;
+					isPressed = true;
+				}
 			}
-			else if (IsKeyPressed(KEY_RIGHT_SHIFT) == true)
+			if (IsKeyPressed(KEY_ENTER) == false)
+			{
+				isPressed = false;
+			}
+			if (IsKeyPressed(KEY_RIGHT_SHIFT) == true)
 			{
 				m_checkClickSmartPhone = false;
 			}
@@ -368,13 +385,13 @@ void GameState::DrawSmartPhoneExplanation()
 void GameState::DrawSmartPhonePage_1()
 {
 	int onigiriP = 10;
-	int onigiriM = 20;
+	int onigiriM = 10;
 
 	int hamburgerP = 20;
-	int hamburgerM = 35;
+	int hamburgerM = 20;
 
 	int pizzaP = 30;
-	int pizzaM = 50;
+	int pizzaM = 30;
 
 	DrawTexture(m_smartphoneFrameTexture, m_smartphoneIcon_posX, m_smartphoneIcon_posY, WHITE);
 	DrawCircle(360, 140, 30, SKYBLUE);
@@ -422,62 +439,238 @@ void GameState::DrawSmartPhonePage_1()
 	if (m_pageWhichOne == 0)
 	{
 		DrawText(TextFormat("Hunger -%d", onigiriP), 600, 230, 30, BLACK);
-		if (IsKeyPressed(KEY_ENTER) == true)
+		if (isPressed == false)
 		{
-			//���� ���� 20��ŭ �ִٸ�
-			if (m_canOrder == true)
+			if (IsKeyPressed(KEY_ENTER) == true)
 			{
-				m_isFirst = true;
-				OrderFood(onigiriP);
-			}
-			else
-			{
-				DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+				if (GetMoney() >= onigiriM)
+				{
+					if (m_canOrder == true)
+					{
+						SpendMoney(onigiriM);
+						m_isFirst = true;
+						OrderFood();
+						isFood = true;
+						m_orderPoint = onigiriP;
+					}
+					else
+					{
+						DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+					}
+				}
+				isPressed = true;
 			}
 		}
+		if (IsKeyPressed(KEY_ENTER) == false)
+		{
+			isPressed = false;
+		}
+
+		
 	}
 	else if (m_pageWhichOne == 1)
 	{
 		DrawText(TextFormat("Hunger -%d", hamburgerP), 600, 230, 30, BLACK);
-		if (IsKeyPressed(KEY_ENTER) == true)
+		if (isPressed == false)
 		{
-			//���� ���� 35��ŭ �ִٸ�
-			if (m_canOrder == true)
+			if (GetMoney() >= hamburgerM)
 			{
-				m_isFirst = true;
-				OrderFood(hamburgerP);
+				if (m_canOrder == true)
+				{
+					SpendMoney(hamburgerM);
+					m_isFirst = true;
+					OrderFood();
+					isFood = true;
+					m_orderPoint = hamburgerP;
+				}
+				else
+				{
+					DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+				}
 			}
-			else
-			{
-				DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
-			}
+		}
+		if (IsKeyPressed(KEY_ENTER) == false)
+		{
+			isPressed = false;
 		}
 	}
 	else if (m_pageWhichOne == 2)
 	{
 		DrawText(TextFormat("Hunger -%d", pizzaP), 600, 230, 30, BLACK);
-		if (IsKeyPressed(KEY_ENTER) == true)
+		if (isPressed == false)
 		{
-			//���� ���� 50��ŭ �ִٸ�
-			if (m_canOrder == true)
+			if (IsKeyPressed(KEY_ENTER) == true)
 			{
-				m_isFirst = true;
-				OrderFood(pizzaP);
-			}
-			else
-			{
-				DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+				if (GetMoney() >= pizzaM)
+				{
+					if (m_canOrder == true)
+					{
+						SpendMoney(pizzaM);
+						m_isFirst = true;
+						OrderFood();
+						isFood = true;
+						m_orderPoint = pizzaP;
+					}
+					else
+					{
+						DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+					}
+				}
+				isPressed = true;
 			}
 		}
+		if (IsKeyPressed(KEY_ENTER) == false)
+		{
+			isPressed = false;
+		}
+		
 	}
 
 }
 
 void GameState::DrawSmartPhonePage_2()
 {
+	int waterP = 10;
+	int waterM = 10;
+
+	int coffeeP = 20;
+	int coffeeM = 20;
+
+	int energyDrinkP = 30;
+	int energyDrinkM = 30;
+
 	DrawTexture(m_smartphoneFrameTexture, m_smartphoneIcon_posX, m_smartphoneIcon_posY, WHITE);
 	DrawCircle(360, 140, 30, RED);
 	DrawText("Drink", 400, 125, 30, BLACK);
+
+	if (IsKeyPressed(KEY_DOWN) == true)
+	{
+		if (m_pageWhichOne == 2)
+		{
+			m_pageWhichOne = 0;
+		}
+		else
+		{
+			m_pageWhichOne += 1;
+		}
+	}
+	else if (IsKeyPressed(KEY_UP) == true)
+	{
+		if (m_pageWhichOne == 0)
+		{
+			m_pageWhichOne = 2;
+		}
+		else
+		{
+			m_pageWhichOne -= 1;
+		}
+	}
+
+	DrawRectangle(m_option_X, optionHeight[m_pageWhichOne], m_option_W, m_option_H, ColorAlpha(GRAY, 0.4));
+
+	DrawRectangleLines(m_option_X, optionHeight[0], m_option_W, m_option_H, BLACK);
+	DrawRectangleLines(m_option_X, optionHeight[1], m_option_W, m_option_H, BLACK);
+	DrawRectangleLines(m_option_X, optionHeight[2], m_option_W, m_option_H, BLACK);
+
+	DrawText("Water", m_option_X + 15, optionHeight[0] + 10, 25, BLACK);
+	DrawText(TextFormat("$ %d", waterM), m_option_X + 180, optionHeight[0] + 10, 25, BLACK);
+
+	DrawText("Coffee", m_option_X + 15, optionHeight[1] + 10, 25, BLACK);
+	DrawText(TextFormat("$ %d", coffeeM), m_option_X + 180, optionHeight[1] + 10, 25, BLACK);
+
+	DrawText("Energy Drink", m_option_X + 15, optionHeight[2] + 10, 25, BLACK);
+	DrawText(TextFormat("$ %d", energyDrinkM), m_option_X + 180, optionHeight[2] + 10, 25, BLACK);
+
+
+	if (m_pageWhichOne == 0)
+	{
+		DrawText(TextFormat("Thirsty -%d", waterP), 600, 230, 30, BLACK);
+		if (isPressed == false)
+		{
+			if (IsKeyPressed(KEY_ENTER) == true)
+			{
+				if (GetMoney() >= waterM)
+				{
+					if (m_canOrder == true)
+					{
+						SpendMoney(waterM);
+						m_isFirst = true;
+						OrderFood();
+						isFood = false;
+						m_orderPoint = waterP;
+					}
+					else
+					{
+						DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+					}
+				}
+				isPressed = true;
+			}
+		}
+		if (IsKeyPressed(KEY_ENTER) == false)
+		{
+			isPressed = false;
+		}
+
+
+	}
+	else if (m_pageWhichOne == 1)
+	{
+		DrawText(TextFormat("Thirsty -%d", coffeeP), 600, 230, 30, BLACK);
+		if (isPressed == false)
+		{
+			if (GetMoney() >= coffeeM)
+			{
+				if (m_canOrder == true)
+				{
+					SpendMoney(coffeeM);
+					m_isFirst = true;
+					isFood = false;
+					OrderFood();
+					m_orderPoint = coffeeP;
+				}
+				else
+				{
+					DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+				}
+			}
+		}
+		if (IsKeyPressed(KEY_ENTER) == false)
+		{
+			isPressed = false;
+		}
+	}
+	else if (m_pageWhichOne == 2)
+	{
+		DrawText(TextFormat("Thirsty -%d", energyDrinkP), 600, 230, 30, BLACK);
+		if (isPressed == false)
+		{
+			if (IsKeyPressed(KEY_ENTER) == true)
+			{
+				if (GetMoney() >= energyDrinkM)
+				{
+					if (m_canOrder == true)
+					{
+						SpendMoney(energyDrinkM);
+						m_isFirst = true;
+						OrderFood();
+						isFood = false;
+						m_orderPoint = energyDrinkP;
+					}
+					else
+					{
+						DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+					}
+				}
+				isPressed = true;
+			}
+		}
+		if (IsKeyPressed(KEY_ENTER) == false)
+		{
+			isPressed = false;
+		}
+
+	}
 }
 
 void GameState::DrawSmartPhonePage_3()
@@ -487,20 +680,86 @@ void GameState::DrawSmartPhonePage_3()
 	DrawText("Furniture", 370, 125, 30, BLACK);
 }
 
-void GameState::OrderFood(int point)
+void GameState::OrderFood()
 {
+	m_checkClickSmartPhone = false;
+	m_canOrder = false;
+	m_smartPhoneWhichIcon = 0;
+	m_smartPhonePage = 0;
+	m_pageWhichOne = 0;
+
 	if (m_isFirst == true)
 	{
 		m_isFirst = false;
 		m_firstTime = timer->GetTimeFromGameStart();
 		m_orderTime = GetRandomValue(5, 8);
+		m_isOrderWait = true;
 	}
-	if (m_firstTime + m_orderTime <= timer->GetTimeFromGameStart())
-	{
-		m_isOrderArrive = true;
-	}
+}
+
+void GameState::GetFood()
+{
 	if (m_isOrderArrive == true)
 	{
-		
+		if (CheckCollisionPointCircle(GetMousePosition(), Vector2{ 180 , 462 }, 35) == true)
+		{
+			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true)
+			{
+				m_isGetFood = true;
+				m_isOrderWait = false;
+			}
+		}
+		if (m_isGetFood == true)
+		{
+			if (isFood == true)
+			{
+				player->ChangeHungry(m_orderPoint);
+			}
+			else
+			{
+				player->ChangeThirsty(m_orderPoint);
+			}
+			m_isGetFood = false;
+			m_isOrderArrive = false;
+			m_canOrder = true;
+		}
+	}
+}
+
+void GameState::DrawArriveFood()
+{
+	if (m_isOrderArrive == true)
+	{
+		DrawCircle(180, 462, 35, ColorAlpha(YELLOW, 0.3));
+
+		if (isFood == true)
+		{
+			DrawTexture(m_orderFoodTexture, 150, 430, WHITE);
+		}
+		else
+		{
+			//음료 사진
+			DrawTexture(m_orderDrinkTexture, 150, 430, WHITE);
+		}
+	}
+}
+
+void GameState::DrawMoneyUI()
+{
+	DrawText(TextFormat("Money : $ %d", GetMoney()), 650, 30, 20, BLACK);
+}
+
+void GameState::DrawWaitTime()
+{
+	if (m_isOrderWait == true)
+	{
+		if (m_firstTime + m_orderTime <= timer->GetTimeFromGameStart())
+		{
+			m_isOrderArrive = true;
+		}
+		else
+		{
+			DrawText(TextFormat("Wait..%d", (int)(m_firstTime + m_orderTime - (int)(timer->GetTimeFromGameStart()) + 1)), 180, 450, 15, BLACK);
+		}
 	}
 }

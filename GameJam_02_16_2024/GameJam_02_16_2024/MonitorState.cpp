@@ -18,8 +18,8 @@ void MonitorState::Init()
 
 	int buttonOffsetX = WINDOW_WIDTH / 4;
 	int buttonOffsetY = WINDOW_HEIGHT / 2;
-	int buttonWidth = 60;
-	int buttonHeight = 40;
+	int buttonWidth = 90;
+	int buttonHeight = 50;
 
 	for (unsigned int i = 0; i < m_levelCounts; ++i)
 	{

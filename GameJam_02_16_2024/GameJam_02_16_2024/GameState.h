@@ -33,7 +33,7 @@ private:
 	int m_checkDecreaseStatus = 2;
 	int m_checkGenTrash = 2;
 
-	Texture2D m_backgroundTexture;
+	Texture2D m_backgroundTexture{};
 
 	std::vector<Trash> trashVec;
 };

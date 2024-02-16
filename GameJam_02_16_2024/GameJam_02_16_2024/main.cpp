@@ -27,7 +27,8 @@ int main()
 	gameStateManager->Init();
 
 	// Temporary codes
-	gameStateManager->SetStateEnum(GameStateEnum::Monitor);
+	//gameStateManager->SetStateEnum(GameStateEnum::Monitor);
+	gameStateManager->SetStateEnum(GameStateEnum::Ending);
 
 	while (WindowShouldClose() == false)
 	{

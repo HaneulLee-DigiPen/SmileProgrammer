@@ -4,27 +4,31 @@
 // Authors : Haneul Lee, Yeaseul Lim, Junhyeong Kim
 
 #include "GameStateManager.h"
+// #include "MenuState.h"
 #include "GameState.h"
 #include "MonitorState.h"
+#include "EndingState.h"
 
+// MenuState* menuState;
 GameState* gameState;
 MonitorState* monitorState;
+EndingState* endingState;
 
 GameStateManager::GameStateManager()
 {
 	std::cout << "Creating GameStateManager..." << std::endl;
 
-	// GameState* menuState = new MenuState();
+	// menuState = new MenuState();
 	gameState = new GameState();
 	monitorState = new MonitorState();
-	// GameState* endingState = new EndingState();
+	endingState = new EndingState();
 
 	m_gameStates.resize(static_cast<int>(GameStateEnum::Count));
 
 	// m_gameStates[static_cast<int>(GameStateEnum::Menu)] = menuState;
 	m_gameStates[static_cast<int>(GameStateEnum::Game)] = gameState;
 	m_gameStates[static_cast<int>(GameStateEnum::Monitor)] = monitorState;
-	// m_gameStates[static_cast<int>(GameStateEnum::Ending)] = EndingState;
+	m_gameStates[static_cast<int>(GameStateEnum::Ending)] = endingState;
 }
 
 void GameStateManager::Init()
@@ -36,7 +40,7 @@ void GameStateManager::Init()
 	// m_gameStates[static_cast<int>(GameStateEnum::Menu)]->Init();
 	m_gameStates[static_cast<int>(GameStateEnum::Game)]->Init();
 	m_gameStates[static_cast<int>(GameStateEnum::Monitor)]->Init();
-	// m_gameStates[static_cast<int>(GameStateEnum::Monitor)]->Init();
+	m_gameStates[static_cast<int>(GameStateEnum::Ending)]->Init();
 }
 
 void GameStateManager::SetStateEnum(GameStateEnum stateEnum)

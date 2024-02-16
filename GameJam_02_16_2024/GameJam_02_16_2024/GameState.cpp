@@ -135,7 +135,7 @@ void GameState::GenerateTrash()
 	if (m_checkGenTrash == 1)
 	{
 		trashVec.push_back(Trash{ GetRandomValue(140, 680), GetRandomValue(125, 500) });
-		genTrashTime = GetRandomValue(3, 10);
+		m_genTrashTime = GetRandomValue(3, 10);
 
 		m_checkGenTrash = 0;
 	}
@@ -152,7 +152,7 @@ void GameState::DrawTrash()
 void GameState::DestroyTrash()
 {
 	int trashW = 25;
-	for (int i = trashVec.size() - 1; i >= 0; --i)
+	for (int i = static_cast<int>(trashVec.size()) - 1; i >= 0; --i)
 	{
 		if (trashVec[i].GetPosX() - trashW >= GetMousePosition().x && trashVec[i].GetPosX() + trashW <= GetMousePosition().x &&
 			trashVec[i].GetPosY() - trashW >= GetMousePosition().y && trashVec[i].GetPosY() + trashW <= GetMousePosition().y)

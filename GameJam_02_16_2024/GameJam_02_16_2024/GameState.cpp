@@ -15,11 +15,12 @@ void GameState::Init()
 {
 	std::cout << "Initializing GameState..." << std::endl;;
 
+	player = new Player();
+
 	Image backgroundImage = LoadImage("Assets/mainroom.png");
 	m_backgroundTexture = LoadTextureFromImage(backgroundImage);
 	UnloadImage(backgroundImage);
 
-	player = new Player();
 	Image smartphoneImage = LoadImage("Assets/smartphone.png");
 	m_smartphoneUITexture = LoadTextureFromImage(smartphoneImage);
 	UnloadImage(smartphoneImage);
@@ -41,6 +42,50 @@ void GameState::Init()
 	Image m_orderDrinkImage = LoadImage("Assets/orderDrink.png");
 	m_orderDrinkTexture = LoadTextureFromImage(m_orderDrinkImage);
 	UnloadImage(m_orderDrinkImage);
+
+	Image m_singleMonitorImage = LoadImage("Assets/singlemonitor.png");
+	m_singleMonitorTexture = LoadTextureFromImage(m_singleMonitorImage);
+	UnloadImage(m_singleMonitorImage);
+
+	Image m_doubleMonitorImage = LoadImage("Assets/doublemonitor.png");
+	m_doubleMonitorTexture = LoadTextureFromImage(m_doubleMonitorImage);
+	UnloadImage(m_doubleMonitorImage);
+
+	Image m_tripleMonitorImage = LoadImage("Assets/triplemonitor.png");
+	m_tripleMonitorTexture = LoadTextureFromImage(m_tripleMonitorImage);
+	UnloadImage(m_tripleMonitorImage);
+
+	Image m_quadMonitorImage = LoadImage("Assets/quadramonitor.png");
+	m_quadMonitorTexture = LoadTextureFromImage(m_quadMonitorImage);
+	UnloadImage(m_quadMonitorImage);
+
+	Image m_sleepingBagImage = LoadImage("Assets/sleepingBag.png");
+	m_sleepingBagTexture = LoadTextureFromImage(m_sleepingBagImage);
+	UnloadImage(m_sleepingBagImage);
+
+	Image m_bedImage = LoadImage("Assets/bed.png");
+	m_bedTexture = LoadTextureFromImage(m_bedImage);
+	UnloadImage(m_bedImage);
+
+	Image m_airConditionerImage = LoadImage("Assets/aircon.png");
+	m_airConditionerTexture = LoadTextureFromImage(m_airConditionerImage);
+	UnloadImage(m_airConditionerImage);
+
+	Image m_fanImage = LoadImage("Assets/fan.png");
+	m_fanTexture = LoadTextureFromImage(m_fanImage);
+	UnloadImage(m_fanImage);
+
+	Image m_curtainImage = LoadImage("Assets/contrain.png");
+	m_curtainTexture = LoadTextureFromImage(m_curtainImage);
+	UnloadImage(m_curtainImage);
+
+	Image m_shelfImage = LoadImage("Assets/book.png");
+	m_shelfTexture = LoadTextureFromImage(m_shelfImage);
+	UnloadImage(m_shelfImage);
+
+	Image m_refrigeratorImage = LoadImage("Assets/refrigester.png");
+	m_refrigeratorTexture = LoadTextureFromImage(m_refrigeratorImage);
+	UnloadImage(m_refrigeratorImage);
 }
 
 void GameState::Update(float dt)
@@ -76,11 +121,20 @@ void GameState::Update(float dt)
 		}
 	}
 	GetFood();
+	PlayerSleep();
+	PlayerToilet();
 }
 
 void GameState::Draw()
 {
 	DrawBackground();
+	DrawBed();
+	DrawCurtain();
+	DrawShelf();
+	DrawFan();
+	DrawAirConditioner();
+	DrawRefrigerator();
+	DrawMonitor();
 	DrawPlayerStatus();
 	DrawTrash();
 	DrawSmartPhoneUI();
@@ -840,31 +894,36 @@ void GameState::DrawSmartPhonePage_3()
 
 	if (m_pageWhichOne == 0)
 	{
-		DrawText(TextFormat("Unlock next level."), 600, 230, 30, BLACK);
+		DrawText("Unlock Level", 600, 230, 30, BLACK);
 		if (IsKeyPressed(KEY_ENTER) == true)
 		{
 			if (m_dualMonitor == false && m_money >= doubleMonitorM)
 			{
 				m_dualMonitor = true;
 				m_money -= doubleMonitorM;
+				monitorState->AddMonitor();
+				player->DoubleIncomeMoney();
 			}
 			else if (m_tripleMonitor == false && m_money >= tripleMonitorM)
 			{
 				m_tripleMonitor = true;
 				m_money -= tripleMonitorM;
+				monitorState->AddMonitor();
+				player->DoubleIncomeMoney();
 			}
 			else if (m_quadMonitor == false && m_money >= quadMonitorM)
 			{
 				m_quadMonitor = true;
 				m_money -= quadMonitorM;
+				monitorState->AddMonitor();
+				player->DoubleIncomeMoney();
 			}
-			monitorState->AddMonitor();
-			player->DoubleIncomeMoney();
 		}
 	}
 	else if (m_pageWhichOne == 1)
 	{
-		DrawText("Get income 0.1 seconds early", 600, 230, 30, BLACK);
+		DrawText("Fast income", 600, 230, 30, BLACK);
+		DrawText("0.1 second", 600, 260, 30, BLACK);
 		if (IsKeyPressed(KEY_ENTER) == true && m_money >= curtainM)
 		{
 			m_curtain = true;
@@ -873,7 +932,8 @@ void GameState::DrawSmartPhonePage_3()
 	}
 	else if (m_pageWhichOne == 2)
 	{
-		DrawText("Get income 0.1 seconds early", 600, 230, 30, BLACK);
+		DrawText("Fast income", 600, 230, 30, BLACK);
+		DrawText("0.1 second", 600, 260, 30, BLACK);
 		if (IsKeyPressed(KEY_ENTER) == true && m_money >= fanM)
 		{
 			m_fan = true;
@@ -882,7 +942,8 @@ void GameState::DrawSmartPhonePage_3()
 	}
 	else if (m_pageWhichOne == 3)
 	{
-		DrawText("Get income 0.1 seconds early", 600, 230, 30, BLACK);
+		DrawText("Fast income", 600, 230, 30, BLACK);
+		DrawText("0.1 second", 600, 260, 30, BLACK);
 		if (IsKeyPressed(KEY_ENTER) == true && m_money >= shelfM)
 		{
 			m_shelf = true;
@@ -891,7 +952,8 @@ void GameState::DrawSmartPhonePage_3()
 	}
 	else if (m_pageWhichOne == 4)
 	{
-		DrawText("Get income 0.2 seconds early", 600, 230, 30, BLACK);
+		DrawText("Fast income", 600, 230, 30, BLACK);
+		DrawText("0.2 second", 600, 260, 30, BLACK);
 		if (IsKeyPressed(KEY_ENTER) == true && m_money >= bedM)
 		{
 			m_bed = true;
@@ -900,7 +962,8 @@ void GameState::DrawSmartPhonePage_3()
 	}
 	else if (m_pageWhichOne == 5)
 	{
-		DrawText("Get income 0.2 seconds early", 600, 230, 30, BLACK);
+		DrawText("Fast income", 600, 230, 30, BLACK);
+		DrawText("0.2 second", 600, 260, 30, BLACK);
 		if (IsKeyPressed(KEY_ENTER) == true && m_money >= refrigeratorM)
 		{
 			m_refrigerator = true;
@@ -909,7 +972,8 @@ void GameState::DrawSmartPhonePage_3()
 	}
 	else if (m_pageWhichOne == 6)
 	{
-		DrawText("Get income 0.2 seconds early", 600, 230, 30, BLACK);
+		DrawText("Fast income", 600, 230, 30, BLACK);
+		DrawText("0.2 second", 600, 260, 30, BLACK);
 		if (IsKeyPressed(KEY_ENTER) == true && m_money >= airConditionerM)
 		{
 			m_airConditioner = true;
@@ -987,6 +1051,78 @@ void GameState::DrawMoneyUI()
 	DrawText(TextFormat("Money : $ %d", GetMoney()), 650, 30, 20, BLACK);
 }
 
+void GameState::DrawBed()
+{
+	if (m_bed == true)
+	{
+		DrawTexture(m_bedTexture, 415, 320, WHITE);
+	}
+	else
+	{
+		DrawTexture(m_sleepingBagTexture, 445, 396, WHITE);
+	}
+}
+
+void GameState::DrawMonitor()
+{
+	if (m_quadMonitor == true)
+	{
+		DrawTexture(m_quadMonitorTexture, 480, 210, WHITE);
+	}
+	else if (m_tripleMonitor == true)
+	{
+		DrawTexture(m_tripleMonitorTexture, 477, 225, WHITE);
+	}
+	else if (m_dualMonitor == true)
+	{
+		DrawTexture(m_doubleMonitorTexture, 475, 250, WHITE);
+	}
+	else
+	{
+		DrawTexture(m_singleMonitorTexture, 495, 265, WHITE);
+	}
+}
+
+void GameState::DrawCurtain()
+{
+	if (m_curtain == true)
+	{
+		DrawTexture(m_curtainTexture, 470, 115, WHITE);
+	}
+}
+
+void GameState::DrawShelf()
+{
+	if (m_shelf == true)
+	{
+		DrawTexture(m_shelfTexture, 280, 130, WHITE);
+	}
+}
+
+void GameState::DrawRefrigerator()
+{
+	if (m_refrigerator == true)
+	{
+		DrawTexture(m_refrigeratorTexture, 230, 280, WHITE);
+	}
+}
+
+void GameState::DrawFan()
+{
+	if (m_fan == true)
+	{
+		DrawTexture(m_fanTexture, 324, 55, WHITE);
+	}
+}
+
+void GameState::DrawAirConditioner()
+{
+	if (m_airConditioner == true)
+	{
+		DrawTexture(m_airConditionerTexture, 200, 80, WHITE);
+	}
+}
+
 void GameState::DrawWaitTime()
 {
 	if (m_isOrderWait == true)
@@ -999,5 +1135,27 @@ void GameState::DrawWaitTime()
 		{
 			DrawText(TextFormat("Wait..%d", (int)(m_firstTime + m_orderTime - (int)(timer->GetTimeFromGameStart()) + 1)), 180, 450, 15, BLACK);
 		}
+	}
+}
+
+void GameState::PlayerSleep()
+{
+	float mouseX = GetMousePosition().x;
+	float mouseY = GetMousePosition().y;
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true &&
+		mouseX > 155 && mouseX < 220 && mouseY > 215 && mouseY < 350)
+	{
+		player->ChangeSleep(10);
+	}
+}
+
+void GameState::PlayerToilet()
+{
+	float mouseX = GetMousePosition().x;
+	float mouseY = GetMousePosition().y;
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true &&
+		mouseX > 510 && mouseX < 680 && mouseY > 445 && mouseY < 500)
+	{
+		player->ChangeBathroom(10);
 	}
 }

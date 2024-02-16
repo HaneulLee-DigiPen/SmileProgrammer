@@ -47,13 +47,21 @@ private:
 	void DrawSmartPhonePage_2();
 	void DrawSmartPhonePage_3();
 	void DrawMoneyUI();
+	void DrawBed();
+	void DrawMonitor();
+	void DrawCurtain();
+	void DrawShelf();
+	void DrawRefrigerator();
+	void DrawFan();
+	void DrawAirConditioner();
 
 	void OrderFood();
 	void DrawArriveFood();
 	void DrawWaitTime();
 	void GetFood();
 
-
+	void PlayerSleep();
+	void PlayerToilet();
 
 	int m_playerStatusTime = 5;
 	int m_genTrashTime = 10;
@@ -70,12 +78,24 @@ private:
 	int m_smartphoneIcon_posX = 200;
 	int m_smartphoneIcon_posY = 30;
 
-	Texture2D m_backgroundTexture;
-	Texture2D m_smartphoneUITexture;
-	Texture2D m_smartphoneIconTexture;
-	Texture2D m_smartphoneFrameTexture;
-	Texture2D m_orderFoodTexture;
-	Texture2D m_orderDrinkTexture;
+	Texture2D m_backgroundTexture{};
+	Texture2D m_smartphoneUITexture{};
+	Texture2D m_smartphoneIconTexture{};
+	Texture2D m_smartphoneFrameTexture{};
+	Texture2D m_orderFoodTexture{};
+	Texture2D m_orderDrinkTexture{};
+
+	Texture2D m_singleMonitorTexture{};
+	Texture2D m_doubleMonitorTexture{};
+	Texture2D m_tripleMonitorTexture{};
+	Texture2D m_quadMonitorTexture{};
+	Texture2D m_sleepingBagTexture{};
+	Texture2D m_bedTexture{};
+	Texture2D m_airConditionerTexture{};
+	Texture2D m_fanTexture{};
+	Texture2D m_curtainTexture{};
+	Texture2D m_shelfTexture{};
+	Texture2D m_refrigeratorTexture{};
 
 	std::vector<Trash> trashVec;
 	bool m_checkClickSmartPhone = false;

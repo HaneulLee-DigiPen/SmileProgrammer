@@ -1,4 +1,5 @@
 #include "StateManager.h"
+#include "GameState.h"
 
 StateManager::StateManager()
 {
@@ -9,6 +10,7 @@ void StateManager::Init()
 {
 	std::cout << "Intializing StateManager..." << std::endl;
 	// Add state pointers into "m_states" vector
+	m_states.push_back(new GameState());
 }
 
 void StateManager::SetStateEnum(StateEnum stateEnum)
@@ -20,7 +22,8 @@ void StateManager::SetStateEnum(StateEnum stateEnum)
 		// m_state = 
 		break;
 	case StateEnum::Game:
-		// m_state = 
+		m_state = m_states[0];
+		m_state->Init();
 		break;
 	case StateEnum::Monitor:
 		// m_state = 
@@ -33,12 +36,13 @@ void StateManager::SetStateEnum(StateEnum stateEnum)
 
 void StateManager::Draw() const
 {
-	// m_State -> Draw();
+	m_state -> Draw();
 }
 
 void StateManager::Update(float dt)
 {
-	// m_State -> Update();
+	m_state -> Update(dt);
+
 }
 
 void StateManager::Clear()

@@ -7,11 +7,16 @@ public:
 	void ChangeBathroom(int point);
 	void ChangeThirsty(int point);
 
+	int GetHungry() { return hungryPoint; }
+	int GetSleep() { return sleepPoint; }
+	int GetThirsty() { return thirstyPoint; }
+	int GetBathroom() { return bathroomPoint; }
+
 private:
-	int sleepPoint = 50;
-	int thirstyPoint = 50;
-	int bathroomPoint = 50;
-	int hungryPoint = 50;
+	int sleepPoint = 100;
+	int thirstyPoint = 100;
+	int bathroomPoint = 100;
+	int hungryPoint = 100;
 
 
 

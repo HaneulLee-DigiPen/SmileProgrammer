@@ -131,11 +131,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Trash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="Timer.h" />
     <ClCompile Include="Player.cpp" />
+    <ClInclude Include="Trash.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h" />

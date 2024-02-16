@@ -5,17 +5,21 @@
 #include <raylib.h>
 #include <iostream>
 #include "Timer.h"
+#include "StateManager.h"
 
 #define GAME_NAME "Smile, Programmer!"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
 Timer timer;
+StateManager stateManager;
 
 int main()
 {
 
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, GAME_NAME);
+	stateManager.Init();
+	stateManager.SetStateEnum(StateEnum::Game);
 
 	while (WindowShouldClose() == false)
 	{
@@ -23,6 +27,10 @@ int main()
 		
 		// Draw Something
 		ClearBackground(Color{ 20, 160, 133, 255 });
+
+		// StateManager
+		stateManager.Update(GetFrameTime());
+		stateManager.Draw();
 
 		// Timer test block
 		{
@@ -36,6 +44,8 @@ int main()
 
 		EndDrawing();
 	}
+
+	stateManager.Clear();
 
 	return 0;
 }

@@ -17,6 +17,8 @@ RhythmSystem* rhythmSystem;
 int main()
 {
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, GAME_NAME);
+	stateManager.Init();
+	stateManager.SetStateEnum(StateEnum::Game);
 
 	timer = new Timer();
 	player = new Player();
@@ -38,9 +40,15 @@ int main()
 		// RhythmSystem
 		rhythmSystem->Update(GetFrameTime());
 		rhythmSystem->Draw();
+		// StateManager
+
+		stateManager.Update(GetFrameTime());
+		stateManager.Draw();
 
 		EndDrawing();
 	}
+
+	stateManager.Clear();
 
 	delete rhythmSystem;
 	delete player;

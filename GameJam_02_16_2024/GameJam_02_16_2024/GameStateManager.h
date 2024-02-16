@@ -6,6 +6,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include "state.h"
 
 enum class GameStateEnum
 {
@@ -16,8 +17,6 @@ enum class GameStateEnum
 	Count
 };
 
-class GameState;
-
 class GameStateManager
 {
 public:
@@ -25,17 +24,17 @@ public:
 
 	void Init();
 	void SetStateEnum(GameStateEnum stateEnum);
-	void Draw() const;
 	void Update(float dt);
+	void Draw() const;
 	void Clear();
 
 	GameStateEnum GetStateEnum() const;
-	GameState* GetState();
+	State* GetState();
 
 private:
-	GameStateEnum m_stateEnum = GameStateEnum::MainMenu;
-	std::vector<GameState*> m_states{};
-	GameState* m_state = nullptr;
+	GameStateEnum m_gameStateEnum = GameStateEnum::MainMenu;
+	std::vector<State*> m_gameStates{static_cast<int>(GameStateEnum::Count)};
+	State* m_gameState = nullptr;
 };
 
 extern GameStateManager* gameStateManager;

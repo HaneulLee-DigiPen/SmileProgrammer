@@ -1,3 +1,8 @@
+// Game Name : Smile, Programmer!
+// Team Name : Sam Nam Mae
+// File Name : Trash.h
+// Authors : Haneul Lee, Yeaseul Lim, Junhyeong Kim
+
 #pragma once
 #include "raylib.h"
 

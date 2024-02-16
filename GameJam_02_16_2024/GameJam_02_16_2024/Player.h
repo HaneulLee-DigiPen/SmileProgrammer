@@ -1,3 +1,8 @@
+// Game Name : Smile, Programmer!
+// Team Name : Sam Nam Mae
+// File Name : Player.h
+// Authors : Haneul Lee, Yeaseul Lim, Junhyeong Kim
+
 #pragma once
 class Player
 {

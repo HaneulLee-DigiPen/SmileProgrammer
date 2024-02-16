@@ -1,3 +1,8 @@
+// Game Name : Smile, Programmer!
+// Team Name : Sam Nam Mae
+// File Name : GameState.cpp
+// Authors : Haneul Lee, Yeaseul Lim, Junhyeong Kim
+
 #include "GameState.h"
 #include "Player.h"
 #include <iostream>
@@ -5,8 +10,10 @@
 
 void GameState::Init()
 {
+	std::cout << "Initializing GameState..." << std::endl;;
+
 	Image backgroundImage = LoadImage("Assets/mainroom.png");
-	backgroundtexture = LoadTextureFromImage(backgroundImage);
+	m_backgroundTexture = LoadTextureFromImage(backgroundImage);
 	UnloadImage(backgroundImage);
 }
 
@@ -25,32 +32,32 @@ void GameState::Draw()
 
 void GameState::Clear()
 {
-	UnloadTexture(backgroundtexture);
+	UnloadTexture(m_backgroundTexture);
 }
 
 
 void GameState::PlayerUpdate()
 {
-	if (checkDecreaseStatus == 2)
+	if (m_checkDecreaseStatus == 2)
 	{
-		if ((int)timer->GetTimeFromGameStart() % playerStatusTime == 0)
+		if ((int)timer->GetTimeFromGameStart() % m_playerStatusTime == 0)
 		{
-			checkDecreaseStatus = 1;
+			m_checkDecreaseStatus = 1;
 		}
 	}
 
-	if ((int)timer->GetTimeFromGameStart() % playerStatusTime != 0)
+	if ((int)timer->GetTimeFromGameStart() % m_playerStatusTime != 0)
 	{
-		checkDecreaseStatus = 2;
+		m_checkDecreaseStatus = 2;
 	}
 
-	if (checkDecreaseStatus == 1)
+	if (m_checkDecreaseStatus == 1)
 	{
 		player->ChangeBathroom(-2);
 		player->ChangeHungry(-3);
 		player->ChangeSleep(-1);
 		player->ChangeThirsty(-4);
-		checkDecreaseStatus = 0;
+		m_checkDecreaseStatus = 0;
 	}
 
 
@@ -106,29 +113,29 @@ void GameState::DrawPlayerStatus()
 
 void GameState::DrawBackground()
 {
-	DrawTexture(backgroundtexture, 400 - backgroundtexture.width / 2, 300 - backgroundtexture.height / 2, WHITE);
+	DrawTexture(m_backgroundTexture, 400 - m_backgroundTexture.width / 2, 300 - m_backgroundTexture.height / 2, WHITE);
 }
 
 void GameState::GenerateTrash()
 {
-	if (checkGenTrash == 2)
+	if (m_checkGenTrash == 2)
 	{
-		if ((int)timer->GetTimeFromGameStart() % genTrashTime == 0)
+		if ((int)timer->GetTimeFromGameStart() % m_genTrashTime == 0)
 		{
-			checkGenTrash = 1;
+			m_checkGenTrash = 1;
 		}
 	}
 
-	if ((int)timer->GetTimeFromGameStart() % genTrashTime != 0)
+	if ((int)timer->GetTimeFromGameStart() % m_genTrashTime != 0)
 	{
-		checkGenTrash = 2;
+		m_checkGenTrash = 2;
 	}
 
-	if (checkGenTrash == 1)
+	if (m_checkGenTrash == 1)
 	{
 		trashVec.push_back(Trash{ GetRandomValue(140, 680), GetRandomValue(125, 500) });
 
-		checkGenTrash = 0;
+		m_checkGenTrash = 0;
 	}
 }
 

@@ -42,9 +42,6 @@ int main()
 		// Timer
 		timer->Update(GetFrameTime());
 
-		// RhythmSystem
-		rhythmSystem->Update(GetFrameTime());
-		rhythmSystem->Draw();
 		// GameStateManager
 		gameStateManager->Update(GetFrameTime());
 		gameStateManager->Draw();

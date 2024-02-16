@@ -1,3 +1,8 @@
+// Game Name : Smile, Programmer!
+// Team Name : Sam Nam Mae
+// File Name : GameState.h
+// Authors : Haneul Lee, Yeaseul Lim, Junhyeong Kim
+
 #pragma once
 #include "Player.h"
 #include "State.h"
@@ -21,13 +26,13 @@ private:
 	void GenerateTrash();
 	void DrawTrash();
 
-	int playerStatusTime = 5;
-	int genTrashTime = 10;
+	int m_playerStatusTime = 5;
+	int m_genTrashTime = 10;
 
-	int checkDecreaseStatus = 2;
-	int checkGenTrash = 2;
+	int m_checkDecreaseStatus = 2;
+	int m_checkGenTrash = 2;
 
-	Texture2D backgroundtexture;
+	Texture2D m_backgroundTexture;
 
 	std::vector<Trash> trashVec;
 };

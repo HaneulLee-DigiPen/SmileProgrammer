@@ -114,9 +114,9 @@ void RhythmSystem::Draw() const
 		int gapX = 50;
 		int gapY = 70;
 
-		for(int i = 0; i < m_keyVLength; ++i)
+		for(unsigned int i = 0; i < m_keyVLength; ++i)
 		{ 
-			for (int j = 0; j < m_keyVVLength; ++j)
+			for (unsigned int j = 0; j < m_keyVVLength; ++j)
 			{
 				unsigned int keyValue = static_cast<unsigned int>(m_keys[i][j]);
 				Color keyColor = BLACK;

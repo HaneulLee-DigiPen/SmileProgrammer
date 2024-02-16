@@ -2,8 +2,13 @@
 
 StateManager::StateManager()
 {
-	std::cout << "Creating StateManger..." << std::endl;
+	std::cout << "Creating StateManager..." << std::endl;
+}
 
+void StateManager::Init()
+{
+	std::cout << "Intializing StateManager..." << std::endl;
+	// Add state pointers into "m_states" vector
 }
 
 void StateManager::SetStateEnum(StateEnum stateEnum)
@@ -12,28 +17,37 @@ void StateManager::SetStateEnum(StateEnum stateEnum)
 	switch (m_stateEnum)
 	{
 	case StateEnum::MainMenu:
-		
+		// m_state = 
 		break;
 	case StateEnum::Game:
-
+		// m_state = 
 		break;
 	case StateEnum::Monitor:
-
+		// m_state = 
 		break;
 	case StateEnum::Ending:
-
+		// m_state = 
 		break;
 	}
 }
 
-void StateManager::Draw()
+void StateManager::Draw() const
 {
-	m_State -> Draw();
+	// m_State -> Draw();
 }
 
 void StateManager::Update(float dt)
 {
-	m_State -> Update();
+	// m_State -> Update();
+}
+
+void StateManager::Clear()
+{
+	for (State* state : m_states)
+	{
+		delete state;
+	}
+	m_states.clear();
 }
 
 StateEnum StateManager::GetStateEnum() const
@@ -43,5 +57,5 @@ StateEnum StateManager::GetStateEnum() const
 
 State* StateManager::GetState()
 {
-	return m_State;
+	return m_state;
 }

@@ -18,8 +18,11 @@ class StateManager
 public:
 	StateManager();
 
+	void Init();
 	void SetStateEnum(StateEnum stateEnum);
+	void Draw() const;
 	void Update(float dt);
+	void Clear();
 
 	StateEnum GetStateEnum() const;
 	State* GetState();
@@ -27,5 +30,5 @@ public:
 private:
 	StateEnum m_stateEnum = StateEnum::MainMenu;
 	std::vector<State*> m_states{};
-	State* m_State = nullptr;
+	State* m_state = nullptr;
 };

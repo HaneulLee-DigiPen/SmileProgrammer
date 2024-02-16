@@ -89,7 +89,6 @@ void RhythmSystem::Play(float dt)
 
 	if (m_timer > m_readyTimer + m_startTimer + m_limitTimer)
 	{
-		Reset();
 		m_stageFailFlag = true;
 	}
 
@@ -259,6 +258,7 @@ void RhythmSystem::Reset()
 	m_readyFlag = false;
 	m_startFlag = false;
 	m_stageClearFlag = false;
+	m_stageFailFlag = false;
 	m_timer = 0.f;
 	GenerateKeys();
 }

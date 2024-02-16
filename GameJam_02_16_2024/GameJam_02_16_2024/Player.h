@@ -40,7 +40,7 @@ private:
 	void UpdateAveragePoint();
 	
 	
-	int m_incomeMoney = 1;
+	int m_incomeMoney = 3;
 };
 
 extern Player* player;

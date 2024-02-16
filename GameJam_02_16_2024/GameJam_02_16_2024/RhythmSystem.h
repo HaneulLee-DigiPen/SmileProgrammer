@@ -36,7 +36,7 @@ private:
 	const float m_startTimer = 3.0f;
 	bool m_startFlag = false;
 	float m_timer = 0.f;
-	float m_limitTimer = 60.f;
+	float m_limitTimer = 10.f;
 
 	bool m_stageClearFlag = false;
 	bool m_stageFailFlag = false;

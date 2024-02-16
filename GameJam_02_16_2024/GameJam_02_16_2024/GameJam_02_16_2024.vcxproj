@@ -130,13 +130,13 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RhythmSystem.cpp" />
-    <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GlobalValues.h" />
     <ClInclude Include="RhythmSystem.h" />
-    <ClInclude Include="StateManager.h" />
+    <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Timer.h" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>

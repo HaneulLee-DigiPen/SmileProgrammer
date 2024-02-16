@@ -7,9 +7,11 @@
 #include <iostream>
 #include "GlobalValues.h"
 #include "Timer.h"
+#include "Player.h"
 #include "RhythmSystem.h"
 
 Timer* timer;
+Player* player;
 RhythmSystem* rhythmSystem;
 
 int main()
@@ -17,6 +19,7 @@ int main()
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, GAME_NAME);
 
 	timer = new Timer();
+	player = new Player();
 	rhythmSystem = new RhythmSystem();
 
 	timer->Init();
@@ -40,6 +43,7 @@ int main()
 	}
 
 	delete rhythmSystem;
+	delete player;
 	delete timer;
 
 	return 0;

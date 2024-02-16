@@ -2,21 +2,21 @@
 
 void Player::ChangeHungry(int point)
 {
-	hungryPoint += point;
+	m_hungryPoint += point;
 }
 
 void Player::ChangeSleep(int point)
 {
-	sleepPoint += point;
+	m_sleepPoint += point;
 }
 
 void Player::ChangeBathroom(int point)
 {
-	bathroomPoint += point;
+	m_bathroomPoint += point;
 }
 
 void Player::ChangeThirsty(int point)
 {
-	thirstyPoint += point;
+	m_thirstyPoint += point;
 }
 

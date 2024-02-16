@@ -8,13 +8,10 @@ public:
 	void ChangeThirsty(int point);
 
 private:
-	int sleepPoint = 50;
-	int thirstyPoint = 50;
-	int bathroomPoint = 50;
-	int hungryPoint = 50;
-
-
-
+	int m_sleepPoint = 50;
+	int m_thirstyPoint = 50;
+	int m_bathroomPoint = 50;
+	int m_hungryPoint = 50;
 };
 
-extern Player player;
+extern Player* player;

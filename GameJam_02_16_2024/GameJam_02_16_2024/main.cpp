@@ -14,7 +14,6 @@
 Timer* timer;
 GameStateManager* gameStateManager;
 Player* player;
-RhythmSystem* rhythmSystem;
 
 int main()
 {
@@ -23,27 +22,25 @@ int main()
 	timer = new Timer();
 	gameStateManager = new GameStateManager();
 	player = new Player();
-	rhythmSystem = new RhythmSystem();
 
 	timer->Init();
 	gameStateManager->Init();
-	rhythmSystem->Init();
 
 	// Temporary codes
-	gameStateManager->SetStateEnum(GameStateEnum::Game);
+	gameStateManager->SetStateEnum(GameStateEnum::Monitor);
 
 	while (WindowShouldClose() == false)
 	{
+		float frameTime = GetFrameTime();
+
 		BeginDrawing();
-		
-		// Draw Something
 		ClearBackground(Color{ 20, 160, 133, 255 });
 		
 		// Timer
-		timer->Update(GetFrameTime());
+		timer->Update(frameTime);
 
 		// GameStateManager
-		gameStateManager->Update(GetFrameTime());
+		gameStateManager->Update(frameTime);
 		gameStateManager->Draw();
 
 		EndDrawing();
@@ -51,7 +48,6 @@ int main()
 
 	gameStateManager->Clear();
 
-	delete rhythmSystem;
 	delete player;
 	delete gameStateManager;
 	delete timer;

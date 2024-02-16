@@ -7,6 +7,10 @@
 #include <iostream>
 #include <vector>
 #include "state.h"
+// #include "MenuState.h"
+#include "GameState.h"
+#include "MonitorState.h"
+// #include "EndingState.h"
 
 enum class GameStateEnum
 {
@@ -38,3 +42,6 @@ private:
 };
 
 extern GameStateManager* gameStateManager;
+
+extern GameState* gameState;
+extern MonitorState* monitorState;

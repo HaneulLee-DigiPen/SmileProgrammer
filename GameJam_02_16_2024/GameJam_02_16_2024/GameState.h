@@ -46,7 +46,14 @@ private:
 	void DrawSmartPhonePage_1();
 	void DrawSmartPhonePage_2();
 	void DrawSmartPhonePage_3();
-	void OrderFood(int point);
+	void DrawMoneyUI();
+
+	void OrderFood();
+	void DrawArriveFood();
+	void DrawWaitTime();
+	void GetFood();
+
+
 
 	int m_playerStatusTime = 5;
 	int m_genTrashTime = 10;
@@ -68,6 +75,7 @@ private:
 	Texture2D m_smartphoneIconTexture;
 	Texture2D m_smartphoneFrameTexture;
 	Texture2D m_orderFoodTexture;
+	Texture2D m_orderDrinkTexture;
 
 	std::vector<Trash> trashVec;
 	bool m_checkClickSmartPhone = false;
@@ -95,4 +103,10 @@ private:
 	bool m_bed = false;
 	bool m_refrigerator = false;
 	bool m_airConditioner = false;
+	bool m_isGetFood = false;
+	bool m_isOrderWait = false;
+	int m_orderPoint = 10;
+	bool isFood = true;
+
+	bool isPressed = false;
 };

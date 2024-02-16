@@ -21,6 +21,7 @@ void GameState::Update(float dt)
 {
 	PlayerUpdate();
 	GenerateTrash();
+	DestroyTrash();
 }
 
 void GameState::Draw()
@@ -134,6 +135,7 @@ void GameState::GenerateTrash()
 	if (m_checkGenTrash == 1)
 	{
 		trashVec.push_back(Trash{ GetRandomValue(140, 680), GetRandomValue(125, 500) });
+		genTrashTime = GetRandomValue(3, 10);
 
 		m_checkGenTrash = 0;
 	}
@@ -144,5 +146,22 @@ void GameState::DrawTrash()
 	for (int i = 0; i < trashVec.size(); ++i)
 	{
 		trashVec[i].Draw();
+	}
+}
+
+void GameState::DestroyTrash()
+{
+	int trashW = 25;
+	for (int i = trashVec.size() - 1; i >= 0; --i)
+	{
+		if (trashVec[i].GetPosX() - trashW >= GetMousePosition().x && trashVec[i].GetPosX() + trashW <= GetMousePosition().x &&
+			trashVec[i].GetPosY() - trashW >= GetMousePosition().y && trashVec[i].GetPosY() + trashW <= GetMousePosition().y)
+		{
+			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true)
+			{
+				trashVec.erase(trashVec.begin() + i);
+				break;
+			}
+		}
 	}
 }

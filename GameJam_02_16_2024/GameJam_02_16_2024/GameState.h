@@ -25,6 +25,7 @@ private:
 	void DrawPlayerStatus();
 	void GenerateTrash();
 	void DrawTrash();
+	void DestroyTrash();
 
 	int m_playerStatusTime = 5;
 	int m_genTrashTime = 10;

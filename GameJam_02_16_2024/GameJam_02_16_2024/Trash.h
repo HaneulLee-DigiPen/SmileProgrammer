@@ -10,7 +10,8 @@ class Trash
 {
 public:
 	Trash(int PosX, int PosY);
-	~Trash();
+	void Init();
+	void Clear();
 	void Draw();
 	int GetPosX() { return posX; }
 	int GetPosY() { return posY; }

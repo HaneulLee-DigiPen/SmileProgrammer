@@ -29,6 +29,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EndingState.cpp">
+     <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -61,6 +64,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EndingState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

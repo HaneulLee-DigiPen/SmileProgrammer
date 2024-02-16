@@ -7,16 +7,17 @@ public:
 	void ChangeBathroom(int point);
 	void ChangeThirsty(int point);
 
-	int GetHungry() { return hungryPoint; }
-	int GetSleep() { return sleepPoint; }
-	int GetThirsty() { return thirstyPoint; }
-	int GetBathroom() { return bathroomPoint; }
+	int GetHungry();
+	int GetSleep();
+	int GetThirsty();
+	int GetBathroom();
 
 private:
+	int m_hungryPoint = 100;
 	int m_sleepPoint = 100;
 	int m_thirstyPoint = 100;
 	int m_bathroomPoint = 100;
-	int m_hungryPoint =100;
+	
 };
 
 extern Player* player;

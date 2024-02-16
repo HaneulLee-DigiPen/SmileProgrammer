@@ -38,4 +38,4 @@ private:
 	GameState* m_state = nullptr;
 };
 
-extern GameStateManager* stateManager;
+extern GameStateManager* gameStateManager;

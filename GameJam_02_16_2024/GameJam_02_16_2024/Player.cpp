@@ -1,66 +1,86 @@
 #include "Player.h"
 
+int Player::GetHungry() 
+{ 
+	return m_hungryPoint; 
+}
+
+int Player::GetSleep() 
+{ 
+	return m_sleepPoint; 
+}
+
+int Player::GetThirsty() 
+{ 
+	return m_thirstyPoint; 
+}
+
+int Player::GetBathroom() 
+{ 
+	return m_bathroomPoint; 
+}
+
 void Player::ChangeHungry(int point)
 {
-	if (hungryPoint + point >= 100)
+	if (m_hungryPoint + point >= 100)
 	{
-		hungryPoint = 100;
+		m_hungryPoint = 100;
 	}
-	else if (hungryPoint + point <= 0)
+	else if (m_hungryPoint + point <= 0)
 	{
-		hungryPoint = 0;
+		m_hungryPoint = 0;
 	}
 	else
 	{
-		hungryPoint += point;
+		m_hungryPoint += point;
 	}
 }
 
 void Player::ChangeSleep(int point)
 {
-	if (sleepPoint + point >= 100)
+	if (m_sleepPoint + point >= 100)
 	{
-		sleepPoint = 100;
+		m_sleepPoint = 100;
 	}
-	else if (sleepPoint + point <= 0)
+	else if (m_sleepPoint + point <= 0)
 	{
-		sleepPoint = 0;
+		m_sleepPoint = 0;
 	}
 	else
 	{
-		sleepPoint += point;
+		m_sleepPoint += point;
 	}
 }
 
 void Player::ChangeBathroom(int point)
 {
-	if (bathroomPoint + point >= 100)
+	if (m_bathroomPoint + point >= 100)
 	{
-		bathroomPoint = 100;
+		m_bathroomPoint = 100;
 	}
-	else if (bathroomPoint + point <= 0)
+	else if (m_bathroomPoint + point <= 0)
 	{
-		bathroomPoint = 0;
+		m_bathroomPoint = 0;
 	}
 	else
 	{
-		bathroomPoint += point;
+		m_bathroomPoint += point;
 	}
 }
 
 void Player::ChangeThirsty(int point)
 {
-	if (thirstyPoint + point >= 100)
+	if (m_thirstyPoint + point >= 100)
 	{
-		thirstyPoint = 100;
+		m_thirstyPoint = 100;
 	}
-	else if (thirstyPoint + point <= 0)
+	else if (m_thirstyPoint + point <= 0)
 	{
-		thirstyPoint = 0;
+		m_thirstyPoint = 0;
 	}
 	else
 	{
-		thirstyPoint += point;
+		m_thirstyPoint += point;
 	}
 }
 

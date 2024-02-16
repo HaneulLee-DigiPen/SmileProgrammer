@@ -7,25 +7,30 @@
 #include <iostream>
 #include "GlobalValues.h"
 #include "Timer.h"
+#include "GameStateManager.h"
 #include "Player.h"
 #include "RhythmSystem.h"
 
 Timer* timer;
+GameStateManager* gameStateManager;
 Player* player;
 RhythmSystem* rhythmSystem;
 
 int main()
 {
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, GAME_NAME);
-	stateManager.Init();
-	stateManager.SetStateEnum(StateEnum::Game);
-
+	
 	timer = new Timer();
+	gameStateManager = new GameStateManager();
 	player = new Player();
 	rhythmSystem = new RhythmSystem();
 
 	timer->Init();
+	gameStateManager->Init();
 	rhythmSystem->Init();
+
+	// Temporary codes
+	gameStateManager->SetStateEnum(GameStateEnum::Game);
 
 	while (WindowShouldClose() == false)
 	{
@@ -40,18 +45,18 @@ int main()
 		// RhythmSystem
 		rhythmSystem->Update(GetFrameTime());
 		rhythmSystem->Draw();
-		// StateManager
-
-		stateManager.Update(GetFrameTime());
-		stateManager.Draw();
+		// GameStateManager
+		gameStateManager->Update(GetFrameTime());
+		gameStateManager->Draw();
 
 		EndDrawing();
 	}
 
-	stateManager.Clear();
+	gameStateManager->Clear();
 
 	delete rhythmSystem;
 	delete player;
+	delete gameStateManager;
 	delete timer;
 
 	return 0;

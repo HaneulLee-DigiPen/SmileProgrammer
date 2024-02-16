@@ -133,6 +133,7 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GlobalValues.h" />
     <ClInclude Include="RhythmSystem.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="Timer.h" />

@@ -5,12 +5,9 @@
 
 #include <raylib.h>
 #include <iostream>
+#include "GlobalValues.h"
 #include "Timer.h"
 #include "RhythmSystem.h"
-
-#define GAME_NAME "Smile, Programmer!"
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
 
 Timer* timer;
 RhythmSystem* rhythmSystem;
@@ -37,6 +34,7 @@ int main()
 
 		// RhythmSystem
 		rhythmSystem->Update(GetFrameTime());
+		rhythmSystem->Draw();
 
 		EndDrawing();
 	}

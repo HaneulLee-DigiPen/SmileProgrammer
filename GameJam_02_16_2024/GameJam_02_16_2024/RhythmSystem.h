@@ -25,6 +25,9 @@ public:
 private:
 	unsigned int m_keyVLength = 3;
 	unsigned int m_keyVVLength = 10;
+	unsigned int m_keyVIndex = 0;
+	unsigned int m_keyVVIndex = 0;
+
 	std::vector<std::vector<KeyboardKey>> m_keys{};
 
 	const float m_readyTimer = 1.0f;
@@ -32,7 +35,15 @@ private:
 	const float m_startTimer = 3.0f;
 	bool m_startFlag = false;
 	float m_timer = 0.f;
-	float m_limitTimer = 10.f;
+	float m_limitTimer = 60.f;
+
+	
+
+	bool m_stageClearFlag = false;
+	bool m_stageFailFlag = false;
+	int score = 100;
+
+
 };
 
 extern RhythmSystem* rhythmSystem;

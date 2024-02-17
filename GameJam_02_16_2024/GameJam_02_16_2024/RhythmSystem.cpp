@@ -34,6 +34,15 @@ void RhythmSystem::Init()
 	Image backgroundImage = LoadImage("Assets/minigamebackground.png");
 	m_backgroundTexture = LoadTextureFromImage(backgroundImage);
 	UnloadImage(backgroundImage);
+
+	if (!whatbuffer.loadFromFile("Sound/what.ogg"))
+	{
+		std::cout << "what sound error";
+	}
+	if (!yahobuffer.loadFromFile("Sound/yaho.ogg"))
+	{
+		std::cout << "yaho sound error";
+	}
 }
 
 void RhythmSystem::Update(float dt)
@@ -70,6 +79,10 @@ void RhythmSystem::Play(float dt)
 		if (GetKeyPressed() != 0 && GetKeyPressed() != m_keys[m_keyVIndex][m_keyVVIndex])
 		{
 			std::cout << "Miss!\n";
+			whatsound.setPlayingOffset(sf::seconds(1));
+			whatsound.setBuffer(whatbuffer);
+			whatsound.play();
+			
 			m_keyVVIndex = 0;
 		}
 	}
@@ -77,6 +90,10 @@ void RhythmSystem::Play(float dt)
 	if (m_keyVVIndex >= m_keys[0].size())
 	{
 		std::cout << "Next Line!\n";
+		yahosound.setBuffer(yahobuffer);
+		yahosound.setPlayingOffset(sf::seconds(1));
+		yahosound.play();
+
 		m_keyVVIndex = 0;
 		m_keyVIndex++;
 	}

@@ -125,6 +125,7 @@ void GameState::Update(float dt)
 void GameState::Draw()
 {
 	DrawBackground();
+	DrawBackgroundExplanation();
 	DrawBed();
 	DrawCurtain();
 	DrawShelf();
@@ -133,9 +134,11 @@ void GameState::Draw()
 	DrawRefrigerator();
 	DrawMonitor();
 	DrawPlayerStatus();
+	DrawTextClick();
 	DrawTrash();
 	DrawSmartPhoneUI();
 	DrawSmartPhoneIcon();
+
 
 	if (monitorState->GetCurrentLevel() < 3) {}
 	else if (monitorState->GetCurrentLevel() < 6 && m_dualMonitor == true) {}
@@ -148,6 +151,8 @@ void GameState::Draw()
 	DrawArriveFood();
 	DrawMoneyUI();
 	DrawWaitTime();
+	Fadeout();
+	
 }
 
 void GameState::Clear()
@@ -159,6 +164,21 @@ void GameState::Clear()
 	UnloadTexture(m_smartphoneIconTexture);
 	UnloadTexture(m_smartphoneFrameTexture);
 	UnloadTexture(m_orderFoodTexture);
+}
+
+void GameState::DrawBackgroundExplanation()
+{
+	DrawText("Monitor", 731, 280, 17, GRAY);
+	DrawText("Enter", 732, 300, 20, BLACK);
+}
+
+void GameState::DrawTextClick()
+{
+	//bed
+	DrawText("Click!", 600, 450, 20, BLACK);
+
+	//bathroom
+	DrawText("Click!", 160, 220, 20, BLACK);
 }
 
 void GameState::AddMoney(unsigned int money)
@@ -320,11 +340,12 @@ void GameState::GenerateTrash()
 
 		Trash trash{ GetRandomValue(generatePosXMin, generatePosXMax), GetRandomValue(generatePosYMin, generatePosYMax) };
 		trash.Init();
-		trashVec.push_back(trash);
+		m_trashVec.push_back(trash);
 		m_genTrashTime = GetRandomValue(generateMinTime, generateMaxTime);
 
 		m_checkGenTrash = 0;
 	}
+
 }
 
 void GameState::DrawTrash()
@@ -338,15 +359,15 @@ void GameState::DrawTrash()
 void GameState::DestroyTrash()
 {
 	int trashW = 50;
-	for (int i = (int)(trashVec.size()) - 1; i >= 0; --i)
+	for (int i = (int)(m_trashVec.size()) - 1; i >= 0; --i)
 	{
-		if (trashVec[i].GetPosX() <= (int)(GetMousePosition().x) && trashVec[i].GetPosX() + trashW >= (int)(GetMousePosition().x) &&
-			trashVec[i].GetPosY() <= (int)(GetMousePosition().y) && trashVec[i].GetPosY() + trashW >= (int)(GetMousePosition().y))
+		if (m_trashVec[i].GetPosX() <= (int)(GetMousePosition().x) && m_trashVec[i].GetPosX() + trashW >= (int)(GetMousePosition().x) &&
+			m_trashVec[i].GetPosY() <= (int)(GetMousePosition().y) && m_trashVec[i].GetPosY() + trashW >= (int)(GetMousePosition().y))
 		{
 			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true)
 			{
-				trashVec[i].Clear();
-				trashVec.erase(trashVec.begin() + i);
+				m_trashVec[i].Clear();
+				m_trashVec.erase(m_trashVec.begin() + i);
 				break;
 			}
 		}
@@ -522,6 +543,7 @@ void GameState::DrawSmartPhonePage_1()
 		else
 		{
 			m_pageWhichOne += 1;
+			std::cout << "Down Push" << std::endl;
 		}
 	}
 	else if (IsKeyPressed(KEY_UP) == true)
@@ -589,19 +611,22 @@ void GameState::DrawSmartPhonePage_1()
 		DrawText(TextFormat("Hunger -%d", hamburgerP), 600, 230, 30, BLACK);
 		if (isPressed == false)
 		{
-			if (GetMoney() >= hamburgerM)
+			if (IsKeyPressed(KEY_ENTER) == true)
 			{
-				if (m_canOrder == true)
+				if (GetMoney() >= hamburgerM)
 				{
-					SpendMoney(hamburgerM);
-					m_isFirst = true;
-					OrderFood();
-					isFood = true;
-					m_orderPoint = hamburgerP;
-				}
-				else
-				{
-					DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+					if (m_canOrder == true)
+					{
+						SpendMoney(hamburgerM);
+						m_isFirst = true;
+						OrderFood();
+						isFood = true;
+						m_orderPoint = hamburgerP;
+					}
+					else
+					{
+						DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+					}
 				}
 			}
 		}
@@ -668,6 +693,7 @@ void GameState::DrawSmartPhonePage_2()
 		else
 		{
 			m_pageWhichOne += 1;
+
 		}
 	}
 	else if (IsKeyPressed(KEY_UP) == true)
@@ -735,19 +761,22 @@ void GameState::DrawSmartPhonePage_2()
 		DrawText(TextFormat("Thirsty -%d", coffeeP), 600, 230, 30, BLACK);
 		if (isPressed == false)
 		{
-			if (GetMoney() >= coffeeM)
+			if (IsKeyPressed(KEY_ENTER) == true)
 			{
-				if (m_canOrder == true)
+				if (GetMoney() >= coffeeM)
 				{
-					SpendMoney(coffeeM);
-					m_isFirst = true;
-					isFood = false;
-					OrderFood();
-					m_orderPoint = coffeeP;
-				}
-				else
-				{
-					DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+					if (m_canOrder == true)
+					{
+						SpendMoney(coffeeM);
+						m_isFirst = true;
+						isFood = false;
+						OrderFood();
+						m_orderPoint = coffeeP;
+					}
+					else
+					{
+						DrawText("You should wait previous delivery.", 600, 230, 30, BLACK);
+					}
 				}
 			}
 		}
@@ -994,7 +1023,7 @@ void GameState::OrderFood()
 	{
 		m_isFirst = false;
 		m_firstTime = timer->GetTimeFromGameStart();
-		m_orderTime = GetRandomValue(5, 8);
+		m_orderTime = GetRandomValue(2, 5);
 		m_isOrderWait = true;
 	}
 }
@@ -1138,24 +1167,61 @@ void GameState::DrawWaitTime()
 	}
 }
 
-void GameState::PlayerSleep()
+void GameState::PlayerToilet()
 {
 	float mouseX = GetMousePosition().x;
 	float mouseY = GetMousePosition().y;
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true &&
 		mouseX > 155 && mouseX < 220 && mouseY > 215 && mouseY < 350)
 	{
-		player->ChangeSleep(10);
+		player->ChangeBathroom(10);
+		fadeoutFirst = true;
+		isSleep = false;
+		fadeTime = true;
 	}
 }
 
-void GameState::PlayerToilet()
+void GameState::PlayerSleep()
 {
 	float mouseX = GetMousePosition().x;
 	float mouseY = GetMousePosition().y;
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) == true &&
 		mouseX > 510 && mouseX < 680 && mouseY > 445 && mouseY < 500)
 	{
-		player->ChangeBathroom(10);
+		player->ChangeSleep(10);
+		fadeoutFirst = true;
+		isSleep = true;
+		fadeTime = true;
+	}
+}
+
+void GameState::Fadeout()
+{
+	if (fadeTime == true)
+	{
+		std::cout << "come" << std::endl;
+		if (fadeoutFirst == true)
+		{
+			fadeoutFirst = false;
+			firstFadeoutTime = timer->GetTimeFromGameStart();
+		}
+		if((firstFadeoutTime + fadeoutTime) >= (int)(timer->GetTimeFromGameStart()))
+		{
+			std::cout << "real" << std::endl;
+			DrawRectangle(0, 0, 800, 600, BLACK);
+			if (isSleep)
+			{
+				DrawText("Speep...", 300, 200, 30, WHITE);
+			}
+			else
+			{
+				DrawText("Toilet...", 300, 200, 30, WHITE);
+			}
+		}
+		else
+		{
+			fadeTime = false;
+		}
+		
 	}
 }

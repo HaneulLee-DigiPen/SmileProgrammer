@@ -29,7 +29,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EndingState.cpp">
-     <Filter>Source Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MenuState.cpp">
       <Filter>Source Files</Filter>
@@ -77,5 +77,18 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{3bfe9d2f-2a82-4f8b-a446-62599611a351}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\SFML-2.6.1\bin\sfml-window-d-2.dll" />
+    <None Include="..\..\..\SFML-2.6.1\bin\openal32.dll" />
+    <None Include="..\..\..\SFML-2.6.1\bin\sfml-audio-2.dll" />
+    <None Include="..\..\..\SFML-2.6.1\bin\sfml-audio-d-2.dll" />
+    <None Include="..\..\..\SFML-2.6.1\bin\sfml-graphics-2.dll" />
+    <None Include="..\..\..\SFML-2.6.1\bin\sfml-graphics-d-2.dll" />
+    <None Include="..\..\..\SFML-2.6.1\bin\sfml-network-2.dll" />
+    <None Include="..\..\..\SFML-2.6.1\bin\sfml-network-d-2.dll" />
+    <None Include="..\..\..\SFML-2.6.1\bin\sfml-system-2.dll" />
+    <None Include="..\..\..\SFML-2.6.1\bin\sfml-system-d-2.dll" />
+    <None Include="..\..\..\SFML-2.6.1\bin\sfml-window-2.dll" />
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
 #include "Timer.h"
 #include "Trash.h"
 #include <vector>
+#include <SFML/Audio.hpp> 
 
 class GameState : public State 
 {
@@ -54,6 +55,8 @@ private:
 	void DrawRefrigerator();
 	void DrawFan();
 	void DrawAirConditioner();
+	void DrawBackgroundExplanation();
+	void DrawTextClick();
 
 	void OrderFood();
 	void DrawArriveFood();
@@ -62,6 +65,8 @@ private:
 
 	void PlayerSleep();
 	void PlayerToilet();
+
+	void Fadeout();
 
 	int m_playerStatusTime = 5;
 	int m_genTrashTime = 10;
@@ -129,4 +134,9 @@ private:
 	bool isFood = true;
 
 	bool isPressed = false;
+	bool fadeoutFirst = false;
+	int firstFadeoutTime = 0;
+	int fadeoutTime = 5;
+	bool fadeTime = false;
+	bool isSleep = true;
 };

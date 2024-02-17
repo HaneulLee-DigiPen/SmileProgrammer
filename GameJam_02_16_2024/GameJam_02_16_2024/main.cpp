@@ -10,12 +10,14 @@
 #include "GameStateManager.h"
 #include "Player.h"
 #include "RhythmSystem.h"
+#include <SFML/Audio.hpp> 
 
 Timer* timer;
 GameStateManager* gameStateManager;
 
 int main()
 {
+
 	InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, GAME_NAME);
 	
 	timer = new Timer();

@@ -9,6 +9,7 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <SFML/Audio.hpp> 
 
 class RhythmSystem
 {
@@ -46,4 +47,10 @@ private:
 
 	std::vector<Texture2D> m_arrows{};
 	Texture2D m_backgroundTexture{};
+
+	sf::SoundBuffer whatbuffer;
+	sf::Sound whatsound;
+
+	sf::SoundBuffer yahobuffer;
+	sf::Sound yahosound;
 };
